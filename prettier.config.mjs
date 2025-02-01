@@ -1,3 +1,4 @@
+/** @type {import('prettier').Config} */
 const config = {
   arrowParens: "always",
   printWidth: 80,
@@ -6,15 +7,7 @@ const config = {
   semi: true,
   trailingComma: "all",
   tabWidth: 2,
-  plugins: ["prettier-plugin-tailwindcss", "prettier-plugin-astro"],
-  overrides: [
-    {
-      files: "*.astro",
-      options: {
-        parser: "astro",
-      },
-    },
-  ],
+  plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
 };
 
 export default config;
