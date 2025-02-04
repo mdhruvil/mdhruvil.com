@@ -35,3 +35,30 @@ export const workExp: WorkExp[] = [
     ],
   },
 ];
+
+export type Project = {
+  name: string;
+  liveLink: string;
+  repoLink: string;
+  description: string;
+  techStack: string[];
+};
+
+export const projects: Project[] = [
+  {
+    name: "college connect",
+    liveLink: "https://cc.mdhruvil.codes",
+    repoLink: "https://github.com/mdhruvil/college-connect",
+    description:
+      "a PWA to increase campus engagement and help students make meaningful connections at universities.",
+    techStack: ["next.js", "tailwindcss", "typescript", "tRPC", "drizzle orm"],
+  },
+  {
+    name: "triveni ldce",
+    liveLink: "https://trivenildce.vercel.app",
+    repoLink: "https://github.com/JeelGajera/trivenildce",
+    description:
+      "led a team to develop a website for Triveni 2k24, a national-level fest, optimizing user experience and enhancing event visibility.",
+    techStack: ["next.js", "tailwindcss", "typescript", "keystatic cms"],
+  },
+];

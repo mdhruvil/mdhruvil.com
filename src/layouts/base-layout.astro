@@ -5,9 +5,10 @@ import Navbar from "../components/navbar.astro";
 type Props = {
   title: string;
   description: string;
+  class?: string;
 };
 
-const { title, description } = Astro.props;
+const { title, description, class: className } = Astro.props;
 ---
 
 <!doctype html>
@@ -17,7 +18,7 @@ const { title, description } = Astro.props;
   </head>
   <body class="mx-auto max-w-4xl px-4 sm:px-6 md:px-8">
     <Navbar />
-    <main>
+    <main class={className}>
       <slot />
     </main>
   </body>
