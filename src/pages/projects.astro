@@ -1,0 +1,24 @@
+---
+import ProjectCard from "../components/project-card.astro";
+import { projects, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import BaseLayout from "../layouts/base-layout.astro";
+---
+
+<BaseLayout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  class="mt-24 space-y-20"
+>
+  <div>
+    <h1 class="flex items-center text-4xl font-bold text-white">
+      <span class="text-accent mr-2">/</span>
+      projects
+    </h1>
+    <p class="mt-4 leading-relaxed text-gray-400">
+      here are some of the projects i&apos;ve worked on.
+    </p>
+  </div>
+  <div class="space-y-6">
+    {projects.map((project) => <ProjectCard {...project} />)}
+  </div>
+</BaseLayout>
