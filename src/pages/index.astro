@@ -3,9 +3,11 @@ import Hero from "../components/sections/hero.astro";
 import Experience from "../components/sections/experience.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import BaseLayout from "../layouts/base-layout.astro";
+import Projects from "../components/sections/projects.astro";
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <Hero />
   <Experience />
+  <Projects />
 </BaseLayout>
