@@ -1,0 +1,14 @@
+---
+import { workExp } from "../../consts";
+import WorkCard from "../work-card.astro";
+---
+
+<section class="mt-16 space-y-10" id="work">
+  <h2 class="flex items-center text-3xl font-bold text-white">
+    <span class="text-accent">/</span>
+    work
+  </h2>
+  <div class="space-y-8">
+    {workExp.map((work) => <WorkCard {...work} />)}
+  </div>
+</section>

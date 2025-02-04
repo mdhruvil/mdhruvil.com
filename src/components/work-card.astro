@@ -1,0 +1,22 @@
+---
+import { type WorkExp } from "../consts";
+type Props = WorkExp;
+
+const { companyName, role, period, achievments, companyLink } = Astro.props;
+---
+
+<div class="group">
+  <a href={companyLink} target="_blank">
+    <h3
+      class="group-hover:text-accent mb-1 text-xl font-semibold text-white transition-colors duration-200"
+    >
+      {companyName}
+    </h3>
+    <p class="mb-2 text-sm text-gray-400">
+      {role} ({period})
+    </p>
+    <ul class="list-inside list-disc text-gray-300">
+      {achievments.map((achievment) => <li>{achievment}</li>)}
+    </ul>
+  </a>
+</div>

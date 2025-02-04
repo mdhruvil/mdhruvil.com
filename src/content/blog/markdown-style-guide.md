@@ -212,3 +212,11 @@ X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup>
 Press <kbd>CTRL</kbd> + <kbd>ALT</kbd> + <kbd>Delete</kbd> to end the session.
 
 Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.
+
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)
+- [MDX Syntax Documentation](https://mdxjs.com/docs/what-is-mdx)

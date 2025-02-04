@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-mono: "JetBrains Mono Variable", monospace;
+  --color-background: #111111;
+  --color-foreground: #d1d5db;
+  --color-accent: #00cf00;
+}
+
+body {
+  @apply bg-background text-foreground font-mono antialiased;
+}
+
+::selection {
+  background: rgba(0, 255, 0, 0.4);
+}

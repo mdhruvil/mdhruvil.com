@@ -1,0 +1,112 @@
+---
+const links = [
+  {
+    name: "[g]ithub",
+    href: "https://github.com/mdhruvil",
+  },
+  {
+    name: "[l]inkedin",
+    href: "https://www.linkedin.com/in/mdhruvil/",
+  },
+];
+---
+
+<section>
+  <h1 class="text-4xl font-bold text-white">Dhruvil M.</h1>
+  <div class="mt-3 flex items-center gap-2 text-gray-400">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="size-4"
+    >
+      <path
+        d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+      ></path>
+      <circle cx="12" cy="10" r="3"></circle>
+    </svg>
+    Ahmedabad, India
+  </div>
+  <div class="mt-2 space-x-4">
+    <button
+      class="hover:text-accent text-sm transition-colors duration-200"
+      id="email-btn"
+    >
+      [e]mail
+    </button>
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class="hover:text-accent text-sm transition-colors duration-200"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {link.name}
+        </a>
+      ))
+    }
+  </div>
+  <p class="mt-8 leading-relaxed">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur, maxime
+    doloribus reiciendis ipsam vel ducimus nesciunt quia debitis. Enim hic, ea
+    soluta deserunt recusandae architecto dicta. Eaque, libero. Molestiae,
+    doloremque.
+  </p>
+</section>
+
+<script>
+  const emailBtn = document.getElementById("email-btn");
+
+  function handleEmailClick() {
+    try {
+      if (!emailBtn) {
+        // this should never happen because email button is always there
+        throw Error("Failed to get email button");
+      }
+      navigator.clipboard.writeText("dhruvil1808@gmail.com");
+      emailBtn.innerText = "copied!!";
+      setTimeout(() => {
+        emailBtn.innerText = "[e]mail";
+      }, 2000);
+    } catch (err) {
+      alert("Failed to copy email to clipboard.\ndhruvil1808@gmail.com");
+      console.error(err);
+    }
+  }
+
+  const links = [
+    {
+      key: "e",
+      action: () => {
+        handleEmailClick();
+      },
+    },
+    {
+      key: "g",
+      action: () => window.open("https://github.com/mdhruvil", "_blank"),
+    },
+    {
+      key: "l",
+      action: () =>
+        window.open("https://www.linkedin.com/in/mdhruvil/", "_blank"),
+    },
+  ];
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    const link = links.find((l) => l.key === event.key.toLowerCase());
+    if (link && link.action) {
+      link.action();
+    }
+  };
+
+  if (emailBtn) {
+    emailBtn.addEventListener("click", handleEmailClick);
+  }
+
+  window.addEventListener("keydown", handleKeyPress);
+</script>
