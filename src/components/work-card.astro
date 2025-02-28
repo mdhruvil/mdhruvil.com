@@ -8,9 +8,20 @@ const { companyName, role, period, achievments, companyLink } = Astro.props;
 <div class="group">
   <a href={companyLink} target="_blank">
     <h3
-      class="group-hover:text-accent mb-1 text-xl font-semibold text-white transition-colors duration-200"
+      class="group-hover:text-accent mb-1 flex items-center gap-2 text-xl font-semibold text-white transition-colors duration-200"
     >
       {companyName}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="group-hover:text-accent size-5 text-gray-300 opacity-0 transition-all duration-200 group-hover:opacity-100"
+        ><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg
+      >
     </h3>
     <p class="mb-2 text-sm text-gray-400">
       {role} ({period})
