@@ -18,7 +18,11 @@
       <span class="text-accent">[p]</span>
       projects
     </a>
-    <a href="/resume" class="hover:text-accent transition-colors duration-200">
+    <a
+      href="https://docs.google.com/document/d/1tDJ9bKlYkeekRE0KtiqJWGPXz3gQl5LFuLADH3j4BwU/edit?usp=sharing"
+      target="_blank"
+      class="hover:text-accent transition-colors duration-200"
+    >
       <span class="text-accent">[r]</span>
       resume
     </a>
@@ -40,7 +44,10 @@
       } else if (event.key === "p") {
         window.location.href = "/projects";
       } else if (event.key === "r") {
-        window.location.href = "/resume";
+        window.open(
+          "https://docs.google.com/document/d/1tDJ9bKlYkeekRE0KtiqJWGPXz3gQl5LFuLADH3j4BwU/edit?usp=sharing",
+          "_blank",
+        );
       }
     }
   });
