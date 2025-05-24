@@ -46,6 +46,22 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: "deplit",
+    liveLink: "https://deplit.tech",
+    repoLink: "https://github.com/mdhruvil/deplit", // Added repoLink
+    description:
+      "My attempt to create Vercel. Supports static sites, global CDN, preview deployments, instant rollbacks and custom subdomain for projects. ",
+    techStack: [
+      "Docker",
+      "Azure",
+      "Cloudflare Workers",
+      "Cloudflare D1",
+      "React",
+      "Hono",
+      "tRPC",
+    ],
+  },
+  {
     name: "college connect",
     liveLink: "https://cc.mdhruvil.codes",
     repoLink: "https://github.com/mdhruvil/college-connect",
