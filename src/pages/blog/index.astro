@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
 import BaseLayout from "../../layouts/base-layout.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -22,5 +23,20 @@ const posts = (await getCollection("blog")).sort(
       here are some blogs i&apos;ve written.
     </p>
   </div>
-  <div class="space-y-6">nothing here yet :)</div>
+  <div class="space-y-5">
+    {
+      posts.map((post) => (
+        <a
+          href={`/blog/${post.id}`}
+          class="group flex justify-between gap-4 transition-colors"
+        >
+          <p class="group-hover:text-accent">{post.data.title}</p>
+          <FormattedDate
+            date={post.data.pubDate}
+            class="group-hover:text-accent shrink-0 text-sm text-gray-400"
+          />
+        </a>
+      ))
+    }
+  </div>
 </BaseLayout>

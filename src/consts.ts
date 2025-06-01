@@ -63,7 +63,7 @@ export const projects: Project[] = [
   },
   {
     name: "college connect",
-    liveLink: "https://cc.mdhruvil.codes",
+    liveLink: "https://college-connect-eight.vercel.app",
     repoLink: "https://github.com/mdhruvil/college-connect",
     description:
       "a PWA to increase campus engagement and help students make meaningful connections at universities.",

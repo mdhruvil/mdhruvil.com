@@ -10,6 +10,7 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^6.3.2",
     "@astrojs/mdx": "^4.0.8",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
@@ -18,11 +19,14 @@
     "@tailwindcss/vite": "^4.0.2",
     "astro": "^5.2.2",
     "astro-expressive-code": "^0.40.1",
+    "date-fns": "^4.1.0",
+    "remark-toc": "^9.0.0",
     "tailwindcss": "^4.0.2"
   },
   "devDependencies": {
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "sharp": "^0.34.2"
   }
 }
