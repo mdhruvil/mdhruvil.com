@@ -52,13 +52,13 @@ export const projects: Project[] = [
     description:
       "My attempt to create Vercel. Supports static sites, global CDN, preview deployments, instant rollbacks and custom subdomain for projects. ",
     techStack: [
-      "Docker",
-      "Azure",
-      "Cloudflare Workers",
-      "Cloudflare D1",
-      "React",
-      "Hono",
-      "tRPC",
+      "docker",
+      "azure",
+      "cloudflare workers",
+      "cloudflare D1",
+      "react",
+      "hono",
+      "trpc",
     ],
   },
   {
