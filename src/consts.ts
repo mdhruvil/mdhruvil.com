@@ -1,6 +1,5 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
-
 export const SITE_TITLE = "Dhruvil M.";
 export const SITE_DESCRIPTION = "Welcome to my website!";
 
@@ -13,6 +12,17 @@ export type WorkExp = {
 };
 
 export const workExp: WorkExp[] = [
+  {
+    companyName: "puch.ai",
+    companyLink: "https://puch.ai",
+    role: "ai intern",
+    period: "July 2025 - Present",
+    achievments: [
+      "added image output support for MCP client",
+      "improved reminder tool to improve accuracy of delivery",
+      "developed grafana dashboard for monitoring",
+    ],
+  },
   {
     companyName: "slidesai.io",
     companyLink: "https://slidesai.io",
@@ -48,7 +58,7 @@ export const projects: Project[] = [
   {
     name: "deplit",
     liveLink: "https://deplit.tech",
-    repoLink: "https://github.com/mdhruvil/deplit", // Added repoLink
+    repoLink: "https://github.com/mdhruvil/deplit",
     description:
       "My attempt to create Vercel. Supports static sites, global CDN, preview deployments, instant rollbacks and custom subdomain for projects. ",
     techStack: [
