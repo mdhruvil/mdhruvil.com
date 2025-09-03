@@ -16,8 +16,9 @@ export const workExp: WorkExp[] = [
     companyName: "puch.ai",
     companyLink: "https://puch.ai",
     role: "ai intern",
-    period: "July 2025 - Present",
+    period: "July 2025 - Aug 2025",
     achievments: [
+      "worked on vibecoding and implemented initial prototype for global caching and versioning for vibecoded sites",
       "added image output support for MCP client",
       "improved reminder tool to improve accuracy of delivery",
       "developed grafana dashboard for monitoring",
