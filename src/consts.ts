@@ -57,6 +57,23 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: "Vibe",
+    liveLink: "https://youtu.be/RY-2LNRveK8",
+    repoLink: "https://github.com/mdhruvil/vibe",
+    description:
+      "Vibe is a vibecoding tool similar to v0, lovable etc that lets users vibecode apps and deploy them directly to their Appwrite account.",
+    techStack: [
+      "docker",
+      "cloudflare containers",
+      "cloudflare durable objects",
+      "cloudflare d1",
+      "hono",
+      "tRPC",
+      "drizzle orm",
+      "next.js",
+    ],
+  },
+  {
     name: "deplit",
     liveLink: "https://deplit.tech",
     repoLink: "https://github.com/mdhruvil/deplit",
@@ -71,21 +88,5 @@ export const projects: Project[] = [
       "hono",
       "trpc",
     ],
-  },
-  {
-    name: "college connect",
-    liveLink: "https://college-connect-eight.vercel.app",
-    repoLink: "https://github.com/mdhruvil/college-connect",
-    description:
-      "a PWA to increase campus engagement and help students make meaningful connections at universities.",
-    techStack: ["next.js", "tailwindcss", "typescript", "tRPC", "drizzle orm"],
-  },
-  {
-    name: "triveni ldce",
-    liveLink: "https://trivenildce.vercel.app",
-    repoLink: "https://github.com/JeelGajera/trivenildce",
-    description:
-      "led a team to develop a website for Triveni 2k24, a national-level fest, optimizing user experience and enhancing event visibility.",
-    techStack: ["next.js", "tailwindcss", "typescript", "keystatic cms"],
   },
 ];
