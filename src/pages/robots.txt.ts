@@ -3,7 +3,7 @@ export async function GET() {
     `User-agent: *
 Allow: /
 
-Sitemap: https://mdhruvil.github.io/sitemap-index.xml
+Sitemap: https://mdhruvil.com/sitemap-index.xml
         `.trim(),
   );
 }

@@ -4,12 +4,12 @@
 
 _A modern, minimalist portfolio website built with Astro_
 
-[![Live Website](https://img.shields.io/badge/🌐_Live_Website-mdhruvil.github.io-brightgreen?style=for-the-badge)](https://mdhruvil.github.io)
+[![Live Website](https://img.shields.io/badge/🌐_Live_Website-mdhruvil.com-brightgreen?style=for-the-badge)](https://mdhruvil.com)
 [![Built with Astro](https://img.shields.io/badge/Built%20with-Astro-FF5D01?style=for-the-badge&logo=astro&logoColor=white)](https://astro.build)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
-![Portfolio Preview](https://mdhruvil.github.io/og.png)
+![Portfolio Preview](https://mdhruvil.com/og.png)
 
 </div>
 
@@ -98,8 +98,8 @@ Get up and running in less than 2 minutes:
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/mdhruvil/mdhruvil.github.io.git
-cd mdhruvil.github.io
+git clone https://github.com/mdhruvil/mdhruvil.com.git
+cd mdhruvil.com
 
 # 2️⃣ Install dependencies
 pnpm install

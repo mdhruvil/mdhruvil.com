@@ -1,7 +1,7 @@
 {
-  "name": "mdhruvil-github-io",
+  "name": "mdhruvil-com",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "packageManager": "pnpm@10.11.0",
   "scripts": {
     "dev": "astro dev",
