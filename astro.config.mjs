@@ -9,7 +9,7 @@ import remarkToc from "remark-toc";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://mdhruvil.github.io",
+  site: "https://mdhruvil.com",
   integrations: [expressiveCode(), mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],

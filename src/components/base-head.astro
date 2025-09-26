@@ -3,6 +3,7 @@
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
 import "@fontsource-variable/jetbrains-mono";
+import jetBrainsMonoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
 import { SITE_TITLE } from "../consts";
 
 interface Props {
@@ -32,6 +33,14 @@ const { title, description, image = "/og.png" } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 
 <link rel="canonical" href={canonicalURL} />
+
+<link
+  rel="preload"
+  as="font"
+  type="font/woff2"
+  href={jetBrainsMonoWoff2}
+  crossorigin="anonymous"
+/>
 
 <title>{title}</title>
 <meta name="title" content={title} />
