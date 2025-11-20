@@ -57,20 +57,16 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: "Vibe",
-    liveLink: "https://youtu.be/RY-2LNRveK8",
-    repoLink: "https://github.com/mdhruvil/vibe",
+    name: "GitVex",
+    liveLink: "https://gitvex.mdhruvil.page",
+    repoLink: "https://github.com/mdhruvil/gitvex",
     description:
-      "Vibe is a vibecoding tool similar to v0, lovable etc that lets users vibecode apps and deploy them directly to their Appwrite account.",
+      "A self-hosted GitHub alternative built to run on serverless platforms. Built on top of Cloudflare Workers, Durable Objects and Convex.",
     techStack: [
-      "docker",
-      "cloudflare containers",
+      "tanstack start",
+      "cloudflare workers",
       "cloudflare durable objects",
-      "cloudflare d1",
-      "hono",
-      "tRPC",
-      "drizzle orm",
-      "next.js",
+      "convex",
     ],
   },
   {
@@ -87,6 +83,23 @@ export const projects: Project[] = [
       "react",
       "hono",
       "trpc",
+    ],
+  },
+  {
+    name: "Vibe",
+    liveLink: "https://youtu.be/RY-2LNRveK8",
+    repoLink: "https://github.com/mdhruvil/vibe",
+    description:
+      "Vibe is a vibecoding tool similar to v0, lovable etc that lets users vibecode apps and deploy them directly to their Appwrite account.",
+    techStack: [
+      "docker",
+      "cloudflare containers",
+      "cloudflare durable objects",
+      "cloudflare d1",
+      "hono",
+      "tRPC",
+      "drizzle orm",
+      "next.js",
     ],
   },
 ];
