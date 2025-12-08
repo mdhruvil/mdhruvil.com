@@ -1,0 +1,42 @@
+name: Build and Release Resume
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.head_commit.message, 'resume')
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v3
+        with:
+          typst_version: "latest"
+
+      - name: Compile Resume to PDF
+        run: typst compile resume.typ resume.pdf
+
+      - name: Compile Resume to PNG
+        run: typst compile --format png resume.typ resume.png
+
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          files: |
+            resume.pdf
+            resume.png
+          draft: false
+          prerelease: false
+          # This ensures 'latest' is overwritten/updated if it exists
+          overwrite: true
