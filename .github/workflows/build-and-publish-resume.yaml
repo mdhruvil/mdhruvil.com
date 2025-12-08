@@ -20,8 +20,6 @@ jobs:
 
       - name: Setup Typst
         uses: typst-community/setup-typst@v3
-        with:
-          typst_version: "latest"
 
       - name: Compile Resume to PDF
         run: typst compile resume.typ resume.pdf
@@ -38,5 +36,3 @@ jobs:
             resume.png
           draft: false
           prerelease: false
-          # This ensures 'latest' is overwritten/updated if it exists
-          overwrite: true
