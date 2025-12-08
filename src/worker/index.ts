@@ -4,7 +4,12 @@ const GH_RELEASES_URL =
   "https://github.com/mdhruvil/mdhruvil.com/releases/latest/download/";
 
 async function notFound() {
-  return env.ASSETS.fetch("https://mdhruvil.com/404.html");
+  const response = await env.ASSETS.fetch("http://assets/404.html");
+  return new Response(response.body, {
+    status: 404,
+    statusText: "Not Found",
+    headers: response.headers,
+  });
 }
 
 export default {
@@ -25,8 +30,7 @@ export default {
       if (!response.ok) {
         return notFound();
       }
-      const arrayBuffer = await response.arrayBuffer();
-      return new Response(arrayBuffer, {
+      return new Response(response.body, {
         headers: {
           "Content-Type": url.pathname.endsWith(".pdf")
             ? "application/pdf"
