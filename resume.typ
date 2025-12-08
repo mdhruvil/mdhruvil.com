@@ -139,7 +139,7 @@
 // RESUME CONTENT
 // ============================================================================
 
-#let name = "Dhruvil M."
+#let name = "Dhruvil Moradiya"
 #let email = "dhruvil1808@gmail.com"
 #let github = "github.com/mdhruvil"
 #let linkedin = "linkedin.com/in/mdhruvil"
