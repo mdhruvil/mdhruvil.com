@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 resume.pdf
 resume.png
+
+.wrangler/
