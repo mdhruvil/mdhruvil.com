@@ -129,7 +129,7 @@ Feel free to fork this project and customize it for your own portfolio! If you f
 
 ## 📞 Contact
 
-- **Email**: dhruvil1808@gmail.com
+- **Email**: hey@mdhruvil.com
 - **LinkedIn**: [mdhruvil](https://www.linkedin.com/in/mdhruvil/)
 - **GitHub**: [mdhruvil](https://github.com/mdhruvil)
 

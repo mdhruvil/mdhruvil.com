@@ -21,8 +21,4 @@ export default defineConfig({
     rehypePlugins: [rehypeHeadingIds],
     remarkPlugins: [remarkToc],
   },
-  prefetch: {
-    defaultStrategy: "viewport",
-    prefetchAll: true,
-  },
 });

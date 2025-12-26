@@ -47,13 +47,13 @@ const links = [
         // this should never happen because email button is always there
         throw Error("Failed to get email button");
       }
-      navigator.clipboard.writeText("dhruvil1808@gmail.com");
+      navigator.clipboard.writeText("hey@mdhruvil.com");
       emailBtn.innerText = "copied!!";
       setTimeout(() => {
         emailBtn.innerText = "[e]mail";
       }, 2000);
     } catch (err) {
-      alert("Failed to copy email to clipboard.\ndhruvil1808@gmail.com");
+      alert("Failed to copy email to clipboard.\nhey@mdhruvil.com");
       console.error(err);
     }
   }
