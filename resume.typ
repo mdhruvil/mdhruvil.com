@@ -207,14 +207,14 @@
 == Projects
 
 #project(
-  name: "GitVex",
-  url: "https://gitvex.mdhruvil.page/mdhruvil/gitvex",
-  repo: "https://github.com/mdhruvil/gitvex",
+  name: "Gitflare - Serverless Self-hosted GitHub Alternative",
+  url: "https://gitflare.mdhruvil.com",
+  repo: "https://github.com/mdhruvil/gitflare",
   demo-video: "https://youtu.be/KkUD8fo1WVE",
 )
-- Tech Stack: Tanstack Start, Cloudflare Workers, Cloudflare Durable Objects, Convex
-- GitVex is a fully open-source serverless git hosting platform
-- Implemented Git smart HTTP protocol handlers from scratch to natively handle git cli requests without heavy compute servers
+- Tech Stack: Tanstack Start, Cloudflare Workers, Cloudflare Durable Objects, Cloudflare D1
+- Gitflare is a fully open-source serverless git hosting platform
+- Implemented Git smart HTTP protocol handlers from scratch to natively handle git cli requests without long running servers
 - Implemented a VFS on top of Durable Objects SQLite to store git objects
 
 #project(
@@ -230,7 +230,7 @@
 == Achievements
 
 - Led a team that secured 6th place in the national-level hackathon, SIH-2023
-- Category winner for #link("https://honc.dev/honcathon")[Honcathon]
+- Vibes Award winner for #link("https://www.convex.dev/hackathons/tanstack")[Tanstack Start Hackathon], Category winner for #link("https://honc.dev/honcathon")[Honcathon]
 
 == Skills
 
