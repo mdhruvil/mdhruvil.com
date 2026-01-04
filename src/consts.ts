@@ -57,16 +57,16 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    name: "GitVex",
-    liveLink: "https://gitvex.mdhruvil.page",
-    repoLink: "https://github.com/mdhruvil/gitvex",
+    name: "Gitflare",
+    liveLink: "https://gitflare.mdhruvil.com",
+    repoLink: "https://github.com/mdhruvil/gitflare",
     description:
-      "A self-hosted GitHub alternative built to run on serverless platforms. Built on top of Cloudflare Workers, Durable Objects and Convex.",
+      "A self-hosted GitHub alternative built to run on serverless platforms. Built on top of Cloudflare Workers, Durable Objects and Cloudflare D1.",
     techStack: [
       "tanstack start",
       "cloudflare workers",
       "cloudflare durable objects",
-      "convex",
+      "cloudflare d1",
     ],
   },
   {
