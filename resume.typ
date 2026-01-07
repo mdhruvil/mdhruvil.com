@@ -234,7 +234,7 @@
 
 == Skills
 
-- *Languages*: JavaScript, TypeScript, C, C++, PHP, Python, Go (Learning)
+- *Languages*: JavaScript, TypeScript, C, C++, PHP, Python
 - *Frontend*: HTML, CSS, React, Svelte, NextJS, SvelteKit, VueJS (Options API)
 - *Backend*: NodeJS, ExpressJS, Hono, Cloudflare Workers, tRPC, Feathers.js, Elastic APM, FastAPI
 - *Languages Spoken*: Fluent in Hindi, Gujarati; Conversational in English
