@@ -13,6 +13,13 @@ export type WorkExp = {
 
 export const workExp: WorkExp[] = [
   {
+    companyName: "cloudflare",
+    companyLink: "https://cloudflare.com",
+    role: "software engineer intern",
+    period: "Feb 2026 - present",
+    achievments: ["joined Emerging Technology & Incubation (ETI) team"],
+  },
+  {
     companyName: "puch.ai",
     companyLink: "https://puch.ai",
     role: "ai intern",
