@@ -60,7 +60,7 @@
   accent-color: "#000000",
   font: "New Computer Modern",
   paper: "a4",
-  author-font-size: 20pt,
+  author-font-size: 16pt,
   font-size: 10pt,
   body,
 ) = {
@@ -85,8 +85,9 @@
 
   // Section headings (== Heading)
   show heading.where(level: 2): it => [
-    #pad(top: 0pt, bottom: -10pt, [#smallcaps(it.body)])
-    #line(length: 100%, stroke: 1pt)
+    #set text(size: 11pt)
+    #pad(top: 0pt, bottom: -11pt, [#smallcaps(it.body)])
+    #line(length: 100%, stroke: 0.5pt)
   ]
 
   // Accent color for headings and links
@@ -116,7 +117,7 @@
 
   // Personal info bar
   pad(
-    top: 0.25em,
+    top: 0em,
     align(personal-info-position)[
       #{
         let items = (
@@ -168,6 +169,15 @@
 )
 
 == Work Experience
+
+#work(
+  title: "Software Engineer Intern",
+  location: "Bengaluru, KA",
+  company: "Cloudflare",
+  company-url: "https://cloudflare.com",
+  dates: dates-helper(start-date: "Feb 2026", end-date: "Present"),
+)
+- Joined Emerging Technology & Incubation (ETI) team
 
 #work(
   title: "AI Intern",

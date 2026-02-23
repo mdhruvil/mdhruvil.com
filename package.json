@@ -10,7 +10,9 @@
     "astro": "astro",
     "deploy": "pnpm run build && wrangler deploy",
     "prettier": "prettier --write .",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types",
+    "dev:resume": "typst watch resume.typ",
+    "build:resume": "typst compile resume.typ"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.9",
