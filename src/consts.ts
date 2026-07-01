@@ -17,7 +17,11 @@ export const workExp: WorkExp[] = [
     companyLink: "https://cloudflare.com",
     role: "software engineer intern",
     period: "Feb 2026 - present",
-    achievments: ["joined Emerging Technology & Incubation (ETI) team"],
+    achievments: [
+      "designed and implemented a proof-of-concept git hosting service built on Cloudflare Artifacts",
+      "architected and built internal AI tooling used by 3,300+ employees daily",
+      "migrated 27,000+ sessions from legacy AI tooling with zero downtime and no data loss",
+    ],
   },
   {
     companyName: "puch.ai",
