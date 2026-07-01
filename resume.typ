@@ -177,7 +177,10 @@
   company-url: "https://cloudflare.com",
   dates: dates-helper(start-date: "Feb 2026", end-date: "Present"),
 )
-- Joined Emerging Technology & Incubation (ETI) team
+- Tech Stack: React, TypeScript, Cloudflare Workers, Durable Objects, Terraform
+- Designed and implemented a proof-of-concept Git hosting service built on Cloudflare Artifacts
+- Architected and built internal AI tooling used by 3,300+ employees daily
+- Migrated 27,000+ sessions from legacy AI tooling with zero downtime and no data loss
 
 #work(
   title: "AI Intern",
@@ -199,8 +202,8 @@
   dates: dates-helper(start-date: "Jul 2024", end-date: "Aug 2024"),
 )
 - Tech Stack: NextJS, TailwindCSS, TypeScript, Cloudflare Workers, Elastic APM, Feathers.js
-- Single-handedly revamped the entire Google Workspace Add-on UI, delivering a modern, intuitive user experience
-- Successfully migrated all microservices from Node.js v12 to v18, significantly enhancing performance and compatibility
+- Single-handedly revamped the entire Google Workspace Add-on UI
+- Successfully migrated all microservices from Node.js v12 to v18
 - Implemented Elastic APM across all microservices, providing real-time visibility into errors and performance bottlenecks
 
 #work(
@@ -212,7 +215,7 @@
 )
 - Tech Stack: VueJS (Options API), PHP, jQuery
 - Developed Efficient Event Management Dashboard: Designed and built an internal dashboard to streamline event management processes, improving operational efficiency
-- Enhanced "Things to Do" Activity Page: Contributed to the development and improvement of the activity page, enhancing user engagement
+- Contributed to the development and improvement of "Things to Do" Activity Page, enhancing user engagement
 
 == Projects
 
