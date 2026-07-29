@@ -2,7 +2,7 @@
 import { type WorkExp } from "../consts";
 type Props = WorkExp;
 
-const { companyName, role, period, achievments, companyLink } = Astro.props;
+const { companyName, roles, achievments, companyLink } = Astro.props;
 ---
 
 <div class="group">
@@ -23,9 +23,15 @@ const { companyName, role, period, achievments, companyLink } = Astro.props;
         ><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg
       >
     </h3>
-    <p class="mb-2 text-sm text-gray-400">
-      {role} ({period})
-    </p>
+    <div class="mb-2 space-y-1 text-sm text-gray-400">
+      {
+        roles.map(({ role, period }) => (
+          <p>
+            {role} ({period})
+          </p>
+        ))
+      }
+    </div>
     <ul class="list-inside list-disc text-gray-300">
       {achievments.map((achievment) => <li>{achievment}</li>)}
     </ul>

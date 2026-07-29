@@ -3,11 +3,15 @@
 export const SITE_TITLE = "Dhruvil M.";
 export const SITE_DESCRIPTION = "Welcome to my website!";
 
+export type WorkRole = {
+  role: string;
+  period: string;
+};
+
 export type WorkExp = {
   companyName: string;
   companyLink: string;
-  role: string;
-  period: string;
+  roles: WorkRole[];
   achievments: string[];
 };
 
@@ -15,8 +19,10 @@ export const workExp: WorkExp[] = [
   {
     companyName: "cloudflare",
     companyLink: "https://cloudflare.com",
-    role: "software engineer intern",
-    period: "Feb 2026 - present",
+    roles: [
+      { role: "systems engineer", period: "Jun 2026 - present" },
+      { role: "software engineer intern", period: "Feb 2026 - Jun 2026" },
+    ],
     achievments: [
       "designed and implemented a proof-of-concept git hosting service built on Cloudflare Artifacts",
       "architected and built internal AI tooling used by 3,300+ employees daily",
@@ -26,8 +32,7 @@ export const workExp: WorkExp[] = [
   {
     companyName: "puch.ai",
     companyLink: "https://puch.ai",
-    role: "ai intern",
-    period: "July 2025 - Aug 2025",
+    roles: [{ role: "ai intern", period: "July 2025 - Aug 2025" }],
     achievments: [
       "worked on vibecoding and implemented initial prototype for global caching and versioning for vibecoded sites",
       "added image output support for MCP client",
@@ -38,8 +43,9 @@ export const workExp: WorkExp[] = [
   {
     companyName: "slidesai.io",
     companyLink: "https://slidesai.io",
-    role: "full-stack development intern",
-    period: "Jul 2024 - Aug 2024",
+    roles: [
+      { role: "full-stack development intern", period: "Jul 2024 - Aug 2024" },
+    ],
     achievments: [
       "revamped the entire google workspace add-on ui",
       "migrated all microservices from node.js v12 to v18",
@@ -49,8 +55,9 @@ export const workExp: WorkExp[] = [
   {
     companyName: "allevents",
     companyLink: "https://allevents.in",
-    role: "full-stack development intern",
-    period: "Apr 2024 - Jul 2024",
+    roles: [
+      { role: "full-stack development intern", period: "Apr 2024 - Jul 2024" },
+    ],
     achievments: [
       "built an internal event management dashboard ",
       `contributed to the development of the "Things to Do" activity page`,
