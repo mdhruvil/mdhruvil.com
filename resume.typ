@@ -28,13 +28,22 @@
   )
 }
 
-#let work(title: "", dates: "", company: "", company-url: "", location: "") = {
-  two-by-two(
-    top-left: [#strong(company) (#link(company-url)[link])],
-    bottom-left: text(size: 0.9em, fill: rgb("#555555"))[#title],
-    top-right: location,
-    bottom-right: emph(dates),
-  )
+#let work(title: "", dates: "", company: "", company-url: "", location: "", roles: ()) = {
+  let role-lines = if roles.len() > 0 {
+    roles
+  } else {
+    ((title: title, dates: dates),)
+  }
+
+  [
+    #strong(company) (#link(company-url)[link]) #h(1fr) #location \
+    #for (i, role) in role-lines.enumerate() {
+      text(size: 0.9em, fill: rgb("#555555"))[#role.title]
+      h(1fr)
+      text(size: 0.8em, fill: rgb("#555555"))[#role.dates]
+      if i < role-lines.len() - 1 { linebreak() }
+    }
+  ]
 }
 
 #let project(name: "", url: "", repo: "", demo-video: "", dates: "") = {
@@ -171,11 +180,19 @@
 == Work Experience
 
 #work(
-  title: "Software Engineer Intern",
   location: "Bengaluru, KA",
   company: "Cloudflare",
   company-url: "https://cloudflare.com",
-  dates: dates-helper(start-date: "Feb 2026", end-date: "Present"),
+  roles: (
+    (
+      title: "Systems Engineer",
+      dates: dates-helper(start-date: "Jun 2026", end-date: "Present"),
+    ),
+    (
+      title: "Software Engineer Intern",
+      dates: dates-helper(start-date: "Feb 2026", end-date: "Jun 2026"),
+    ),
+  ),
 )
 - Tech Stack: React, TypeScript, Cloudflare Workers, Durable Objects, Terraform
 - Designed and implemented a proof-of-concept Git hosting service built on Cloudflare Artifacts
@@ -250,4 +267,3 @@
 - *Languages*: JavaScript, TypeScript, C, C++, PHP, Python
 - *Frontend*: HTML, CSS, React, Svelte, NextJS, SvelteKit, VueJS (Options API)
 - *Backend*: NodeJS, ExpressJS, Hono, Cloudflare Workers, tRPC, Feathers.js, Elastic APM, FastAPI
-- *Languages Spoken*: Fluent in Hindi, Gujarati; Conversational in English
