@@ -30,16 +30,29 @@ Navigate the site using these keyboard shortcuts:
 - `g` - GitHub profile (when on links section)
 - `l` - LinkedIn profile (when on links section)
 
-## 🚀 Tech Stack & Architecture
+## Tech stack and architecture
 
-### Core Technologies
+Astro builds the portfolio, blog, feeds, and custom 404 as static assets. The
+official Cloudflare Workers adapter runs only `/resume.pdf` and `/resume.png` on
+demand. These endpoints stream the latest GitHub release assets with no caching.
+Missing upstream resume assets return an empty 404, an accepted limitation of the
+current Astro beta. Other missing pages use the existing branded 404.
 
-| Technology                                       | Purpose               | Version  |
-| ------------------------------------------------ | --------------------- | -------- |
-| [**Astro**](https://astro.build)                 | Static Site Generator | `^5.2.2` |
-| [**TypeScript**](https://www.typescriptlang.org) | Type Safety           | Latest   |
-| [**Tailwind CSS**](https://tailwindcss.com)      | Utility-First Styling | `^4.0.2` |
-| [**MDX**](https://mdxjs.com)                     | Enhanced Markdown     | `^4.0.8` |
+Cloudflare project settings live in `cloudflare.config.ts`. Sessions are disabled
+and images are optimized at build time, so deployment does not need SESSION KV
+or production IMAGES bindings. The adapter owns the Worker entrypoint and writes
+Build Output under `.cloudflare/output/v0/`.
+
+The approved beta ranges are Astro `^7.4.0-beta.1`, Cloudflare adapter
+`^15.0.0-beta.1`, MDX `^8.0.3-beta.0`, and local `cf` CLI `^1.0.0-beta.12`.
+All direct dependencies use caret ranges; `pnpm-lock.yaml` records the tested
+exact versions. Expressive Code's Astro peer metadata excludes this prerelease
+under standard semver, although content and build checks pass. pnpm's peer check
+does not flag that prerelease mismatch. TypeScript stays on 6 because
+`@astrojs/check` does not yet support TypeScript 7.
+
+The compatibility date is `2026-10-02`, the validation machine's UTC date.
+workerd rejected October 3 as a future date.
 
 ### Key Integrations
 
@@ -80,44 +93,92 @@ Navigate the site using these keyboard shortcuts:
 └── package.json
 ```
 
-## 🏃‍♂️ Quick Start
+## Quick start
 
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- **Node.js** `18.0.0` or higher ([Download here](https://nodejs.org/))
-- **pnpm** (recommended) or npm package manager
-  ```bash
-  npm install -g pnpm
-  ```
-
-### One-Click Setup
-
-Get up and running in less than 2 minutes:
+Use Node `24.21.0`, recorded in `.node-version`. The supported Node range is
+`^22.18.0 || ^24.11.0 || >=26.0.0`. The project selects pnpm `12.8.1` through
+`packageManager`; no global tool upgrade is required.
 
 ```bash
-# 1️⃣ Clone the repository
 git clone https://github.com/mdhruvil/mdhruvil.com.git
 cd mdhruvil.com
-
-# 2️⃣ Install dependencies
-pnpm install
-
-# 3️⃣ Start development server
-pnpm dev
-
-# 🎉 Open http://localhost:4321 in your browser
+npx --yes pnpm@12.8.1 install --frozen-lockfile
+npx --yes pnpm@12.8.1 run dev
 ```
 
-## 📜 Available Scripts
+Vite+ is a project dev dependency. With a global `vp` already available, use
+`vp install --frozen-lockfile`. Without one, use `pnpm exec vp` in place of `vp`
+after bootstrapping with the selected pnpm. If your global pnpm is older, use
+`npx --yes pnpm@12.8.1 exec vp`.
 
-| Command         | Description               |
-| --------------- | ------------------------- |
-| `pnpm dev`      | Start development server  |
-| `pnpm build`    | Build for production      |
-| `pnpm preview`  | Preview production build  |
-| `pnpm prettier` | Format code with Prettier |
+## Available scripts
+
+| Command                   | Description                                                   |
+| ------------------------- | ------------------------------------------------------------- |
+| `vp run dev`              | Local `cf dev`, which delegates to Astro                      |
+| `vp run build`            | Local `cf build`, which delegates to Astro                    |
+| `vp run preview`          | Preview the production build locally, build first             |
+| `vp run format`           | Oxfmt plus whole-file Astro formatting with Prettier          |
+| `vp run format:check`     | Check both formatter groups                                   |
+| `vp run check`            | Generate types, sync Astro, check formatting, lint, and types |
+| `vp run test`             | Run the focused resume helper tests                           |
+| `pnpm run cf-typegen`     | Generate `.cloudflare/types` with local `cf workers types`    |
+| `pnpm run cf:version`     | Print the local Cloudflare CLI version                        |
+| `pnpm run deploy:dry-run` | Build and validate locally, no upload or credentials          |
+| `pnpm run deploy`         | Real production deployment, requires authorization            |
+| `pnpm run dev:resume`     | Watch the Typst resume                                        |
+| `pnpm run build:resume`   | Compile the Typst resume                                      |
+
+Local Typst output goes to `.resume/resume.pdf`. Do not generate `resume.pdf` or
+`resume.png` in the project root during development. Astro's dev route guard
+blocks browser navigations to root files before endpoint routing, and other
+requests can serve those files instead of the GitHub-backed endpoints. The
+GitHub release workflow still publishes assets named `resume.pdf` and `resume.png`.
+
+Use `vp run dev/build/preview`, not bare `vp dev/build/preview`, which are Vite
+built-ins. `pnpm run` launches the same scripts. Package scripts call `cf`
+directly and resolve the project-local binary. Bare `cf` in an ordinary terminal
+still needs PATH or global setup. For direct CLI troubleshooting, use
+`./node_modules/.bin/cf`; there are no `vp exec cf` wrappers.
+
+Oxfmt handles supported files and sorts Tailwind classes using
+`src/styles/global.css`. It excludes `.astro` files and generated output.
+Prettier and its Astro/Tailwind plugins format only `src/**/*.astro`, including
+frontmatter, scripts, and styles. Bare `vp fmt` does not format Astro components.
+`astro check` supplies Astro-specific diagnostics alongside Vite+'s native checks.
+
+The current `cf` beta cannot forward dev arguments. To choose a host or port,
+use `pnpm run astro dev --host 127.0.0.1 --port 4321` directly. Astro starts
+background servers when it detects a coding agent; stop those with
+`pnpm run astro dev stop` or `pnpm run astro preview stop`.
+
+Builds currently emit a Rolldown warning about MDX's `use astro:head-inject`
+directive. The preview smoke checks confirm the blog's code styles, images, TOC,
+and hashed assets are present. Desktop/mobile visual and keyboard checks still
+need a browser before production rollout.
+
+### Deployment and updates
+
+No production deployment or remote pipeline change is part of this migration.
+Before rollout, confirm that Workers Builds or your existing pipeline uses the
+new scripts, installs dev dependencies, selects the supported Node/pnpm, and
+preserves the actual custom-domain routing. `cf deploy` builds first; do not add a
+second build wrapper. A prebuilt deploy must use the mode recorded in
+`.cloudflare/output/v0/config.json`, normally `production`.
+
+`cf` uses its own credentials rather than Wrangler's login. When authorized,
+authenticate with `./node_modules/.bin/cf auth login` and inspect them with
+`./node_modules/.bin/cf auth whoami`. Automation can use `CLOUDFLARE_API_TOKEN`
+and `CLOUDFLARE_ACCOUNT_ID`; never commit tokens.
+
+Dependency updates require refreshing and committing the lockfile, then repeating
+the checks, tests, build, dry run, and preview smoke tests. Carets do not track
+every future beta or major. Update Astro/adapter/MDX beta trains together and use
+coordinated Vite+ migrations. Keep Vite+ and its Vite core alias on the same
+release, and restore caret ranges if its migrator writes exact pins. Do not
+independently upgrade Vite+'s bundled formatter/linter. The workspace includes
+version-specific release-age exceptions for the approved freshly published
+packages, not a blanket bypass of pnpm's build approvals.
 
 ## 📄 License
 

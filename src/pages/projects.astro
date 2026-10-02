@@ -19,6 +19,8 @@ import BaseLayout from "../layouts/base-layout.astro";
     </p>
   </div>
   <div class="space-y-6">
-    {projects.map((project) => <ProjectCard {...project} />)}
+    {projects.map((project) => (
+      <ProjectCard {...project} />
+    ))}
   </div>
 </BaseLayout>

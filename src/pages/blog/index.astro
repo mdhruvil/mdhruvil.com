@@ -24,19 +24,15 @@ const posts = (await getCollection("blog")).sort(
     </p>
   </div>
   <div class="space-y-5">
-    {
-      posts.map((post) => (
-        <a
-          href={`/blog/${post.id}`}
-          class="group flex justify-between gap-4 transition-colors"
-        >
-          <p class="group-hover:text-accent">{post.data.title}</p>
-          <FormattedDate
-            date={post.data.pubDate}
-            class="group-hover:text-accent shrink-0 text-sm text-gray-400"
-          />
-        </a>
-      ))
-    }
+    {posts.map((post) => <a
+      href={`/blog/${post.id}`}
+      class="group flex justify-between gap-4 transition-colors"
+    >
+      <p class="group-hover:text-accent">{post.data.title}</p>
+      <FormattedDate
+        date={post.data.pubDate}
+        class="group-hover:text-accent shrink-0 text-sm text-gray-400"
+      />
+    </a>)}
   </div>
 </BaseLayout>

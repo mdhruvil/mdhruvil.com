@@ -27,18 +27,14 @@ const links = [
     >
       [e]mail
     </button>
-    {
-      links.map((link) => (
-        <a
-          href={link.href}
-          class="hover:text-accent text-sm transition-colors duration-200"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {link.name}
-        </a>
-      ))
-    }
+    {links.map((link) => <a
+      href={link.href}
+      class="hover:text-accent text-sm transition-colors duration-200"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {link.name}
+    </a>)}
   </div>
 </section>
 

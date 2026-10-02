@@ -25,5 +25,7 @@ pnpm-debug.log*
 
 resume.pdf
 resume.png
+.resume/
 
 .wrangler/
+.cloudflare/

@@ -20,17 +20,13 @@ const { companyName, roles, achievments, companyLink } = Astro.props;
         stroke-linecap="round"
         stroke-linejoin="round"
         class="group-hover:text-accent size-5 text-gray-300 opacity-0 transition-all duration-200 group-hover:opacity-100"
-        ><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg
       >
+        <path d="M7 7h10v10"></path>
+        <path d="M7 17 17 7"></path>
+      </svg>
     </h3>
     <div class="mb-2 space-y-1 text-sm text-gray-400">
-      {
-        roles.map(({ role, period }) => (
-          <p>
-            {role} ({period})
-          </p>
-        ))
-      }
+      {roles.map(({ role, period }) => <p>{role} ({period})</p>)}
     </div>
     <ul class="list-inside list-disc text-gray-300">
       {achievments.map((achievment) => <li>{achievment}</li>)}

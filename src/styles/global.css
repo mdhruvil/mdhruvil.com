@@ -10,7 +10,7 @@
 }
 
 body {
-  @apply bg-background text-foreground font-mono antialiased;
+  @apply bg-background font-mono text-foreground antialiased;
 }
 
 ::selection {

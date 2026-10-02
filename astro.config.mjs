@@ -1,5 +1,6 @@
 // @ts-check
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import cloudflare from "@astrojs/cloudflare";
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
@@ -10,6 +11,13 @@ import remarkToc from "remark-toc";
 // https://astro.build/config
 export default defineConfig({
   site: "https://mdhruvil.com",
+  output: "static",
+  compressHTML: true,
+  session: false,
+  adapter: cloudflare({
+    imageService: "compile",
+    prerenderEnvironment: "node",
+  }),
   integrations: [expressiveCode(), mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
@@ -18,7 +26,9 @@ export default defineConfig({
     shikiConfig: {
       theme: "catppuccin-mocha",
     },
-    rehypePlugins: [rehypeHeadingIds],
-    remarkPlugins: [remarkToc],
+    processor: unified({
+      rehypePlugins: [rehypeHeadingIds],
+      remarkPlugins: [remarkToc],
+    }),
   },
 });

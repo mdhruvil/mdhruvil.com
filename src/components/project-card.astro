@@ -3,7 +3,7 @@ import type { Project } from "../consts";
 
 type Props = Project;
 
-const { name, liveLink, repoLink, description, techStack } = Astro.props;
+const { name, repoLink, description, techStack } = Astro.props;
 ---
 
 <div
@@ -25,11 +25,14 @@ const { name, liveLink, repoLink, description, techStack } = Astro.props;
         stroke-linecap="round"
         stroke-linejoin="round"
         class="group-hover:text-accent h-5 w-5 text-gray-400 transition-colors"
-        ><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
-        ></path><path
-          d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
-        ></path></svg
       >
+        <path
+          d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+        ></path>
+        <path
+          d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+        ></path>
+      </svg>
     </div>
 
     <p class="mb-6 text-gray-300">{description}</p>
@@ -37,13 +40,11 @@ const { name, liveLink, repoLink, description, techStack } = Astro.props;
     <div>
       <h3 class="mb-2 font-semibold text-white">technologies</h3>
       <div class="flex flex-wrap gap-2">
-        {
-          techStack.map((tech) => (
-            <span class="rounded bg-gray-800/50 px-2 py-1 text-sm text-gray-300">
-              {tech.toLowerCase()}
-            </span>
-          ))
-        }
+        {techStack.map((tech) => <span
+          class="rounded bg-gray-800/50 px-2 py-1 text-sm text-gray-300"
+        >
+          {tech.toLowerCase()}
+        </span>)}
       </div>
     </div>
   </a>

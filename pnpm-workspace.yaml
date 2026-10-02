@@ -1,5 +1,22 @@
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - esbuild
-  - sharp
-  - workerd
+allowBuilds:
+  "@tailwindcss/oxide": true
+  esbuild: true
+  sharp: true
+  workerd: true
+minimumReleaseAgeExclude:
+  - "@astrojs/cloudflare@15.0.0-beta.1"
+  - "@cloudflare/build-output-utils@0.8.5"
+  - "@cloudflare/config@0.23.0"
+  - "@types/node@24.19.1"
+  - astro@7.4.0-beta.1
+  - cf@1.0.0-beta.12
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@^1.0.0
+  vite-plus: ^1.0.0
+overrides:
+  vite@*: "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: "*"

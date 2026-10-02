@@ -9,6 +9,8 @@ import ProjectCard from "../project-card.astro";
     projects
   </h2>
   <div class="space-y-4">
-    {projects.map((project) => <ProjectCard {...project} />)}
+    {projects.map((project) => (
+      <ProjectCard {...project} />
+    ))}
   </div>
 </section>

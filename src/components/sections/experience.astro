@@ -9,6 +9,8 @@ import WorkCard from "../work-card.astro";
     work
   </h2>
   <div class="space-y-8">
-    {workExp.map((work) => <WorkCard {...work} />)}
+    {workExp.map((work) => (
+      <WorkCard {...work} />
+    ))}
   </div>
 </section>
