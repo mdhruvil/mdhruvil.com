@@ -1,5 +1,8 @@
 ---
 import { socialLinks } from "../data/site";
+// Copy links keep their href, so they still work without JS or clipboard
+// access. Both labels share one grid cell: they crossfade in place and the
+// link never changes width.
 ---
 
 <div
@@ -8,12 +11,75 @@ import { socialLinks } from "../data/site";
   {socialLinks.map((link, index) => (
     <>
       {index > 0 && <span class="text-subtle" aria-hidden="true"> / </span>}
-      <a
-        class="hit text-body transition-colors duration-150 hover:text-accent"
-        href={link.href}
-      >
-        {link.label}
-      </a>
+      {link.copy ? (
+        <a
+          class="group/copy hit inline-grid text-body transition-colors duration-150 hover:text-accent"
+          href={link.href}
+          title={`copy ${link.copy}`}
+          data-copy={link.copy}
+        >
+          <span
+            class="transition-[opacity,filter,translate] duration-200 ease-quint [grid-area:1/1] group-data-copied/copy:opacity-0 group-data-copied/copy:blur-[2px] motion-safe:group-data-copied/copy:-translate-y-0.75"
+          >
+            {link.label}
+          </span>
+          <span
+            class="inline-flex items-center gap-1.5 text-success opacity-0 blur-[2px] transition-[opacity,filter,translate] duration-200 ease-quint [grid-area:1/1] group-data-copied/copy:translate-y-0 group-data-copied/copy:opacity-100 group-data-copied/copy:blur-none motion-safe:translate-y-0.75"
+            aria-hidden="true"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-3"
+            >
+              <path
+                d="m4 12 5 5L20 6"
+                pathLength="1"
+                class="transition-[stroke-dashoffset] duration-250 ease-quint [stroke-dasharray:1] [stroke-dashoffset:1] group-data-copied/copy:delay-75 group-data-copied/copy:[stroke-dashoffset:0] motion-reduce:transition-none"
+              ></path>
+            </svg>
+            copied
+          </span>
+          <span class="sr-only" aria-live="polite" data-copy-status></span>
+        </a>
+      ) : (
+        <a
+          class="hit text-body transition-colors duration-150 hover:text-accent"
+          href={link.href}
+        >
+          {link.label}
+        </a>
+      )}
     </>
   ))}
 </div>
+
+<script>
+  for (const link of document.querySelectorAll<HTMLAnchorElement>(
+    "a[data-copy]",
+  )) {
+    const status = link.querySelector<HTMLElement>("[data-copy-status]");
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    link.addEventListener("click", async (event) => {
+      event.preventDefault();
+      try {
+        await navigator.clipboard.writeText(link.dataset.copy ?? "");
+      } catch {
+        location.href = link.href;
+        return;
+      }
+      link.dataset.copied = "";
+      if (status) status.textContent = `${link.dataset.copy} copied`;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        delete link.dataset.copied;
+        if (status) status.textContent = "";
+      }, 2000);
+    });
+  }
+</script>

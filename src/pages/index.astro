@@ -8,8 +8,22 @@ import BaseLayout from "../layouts/base-layout.astro";
 
 <BaseLayout>
   <Fragment slot="intro">
-    <p class="mt-7 text-[15px]/[1.75] text-pretty text-foreground max-sm:mt-6">
-      {site.bio}
+    <p
+      class="mt-16 text-[14px]/[1.75] text-pretty text-foreground max-sm:mt-14"
+    >
+      {site.bio.map((part) =>
+        typeof part === "string" ? (
+          part
+        ) : (
+          <a
+            class="underline decoration-subtle underline-offset-4 transition-colors duration-150 hover:text-accent hover:decoration-accent"
+            href={part.href}
+            target="_blank"
+            rel="noopener"
+            >{part.label}</a
+          >
+        ),
+      )}
     </p>
     <SocialLinks />
   </Fragment>
