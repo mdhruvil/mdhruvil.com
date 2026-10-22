@@ -1,0 +1,34 @@
+---
+import { navLinks, site } from "../data/site";
+
+const isHome = Astro.url.pathname === "/";
+const Name = isHome ? "h1" : "p";
+---
+
+<header class="reveal-0">
+  <div class="flex items-center justify-between gap-4">
+    <Name
+      class="text-[18px]/[1.4] font-semibold tracking-[-0.3px] text-foreground"
+    >
+      {isHome ? (
+        site.name
+      ) : (
+        <a class="transition-colors duration-150 hover:text-accent" href="/">
+          {site.name}
+        </a>
+      )}
+    </Name>
+    <nav
+      class="flex gap-4.5 max-sm:[--hit-x:9px] max-sm:[--hit-y:14px]"
+      aria-label="site"
+    >
+      {navLinks.map((link) => <a
+        class="hit text-muted transition-colors duration-150 hover:text-accent"
+        href={link.href}
+      >
+        {link.label}
+      </a>)}
+    </nav>
+  </div>
+  <slot />
+</header>

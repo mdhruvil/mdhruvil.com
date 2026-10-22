@@ -1,19 +1,18 @@
 ---
-import Hero from "../components/sections/hero.astro";
-import Experience from "../components/sections/experience.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import ProjectList from "../components/project-list.astro";
+import SocialLinks from "../components/social-links.astro";
+import WorkList from "../components/work-list.astro";
+import { site } from "../data/site";
 import BaseLayout from "../layouts/base-layout.astro";
-import Projects from "../components/sections/projects.astro";
-import Links from "../components/sections/links.astro";
 ---
 
-<BaseLayout
-  title={SITE_TITLE}
-  description={SITE_DESCRIPTION}
-  class="mt-24 space-y-20"
->
-  <Hero />
-  <Experience />
-  <Projects />
-  <Links />
+<BaseLayout>
+  <Fragment slot="intro">
+    <p class="mt-7 text-[15px]/[1.75] text-pretty text-foreground max-sm:mt-6">
+      {site.bio}
+    </p>
+    <SocialLinks />
+  </Fragment>
+  <WorkList />
+  <ProjectList />
 </BaseLayout>

@@ -1,36 +1,35 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
-import "../styles/global.css";
 import "@fontsource-variable/jetbrains-mono";
 import jetBrainsMonoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
-import { SITE_TITLE } from "../consts";
+import "../styles/global.css";
+import { site } from "../data/site";
 
-interface Props {
+type Props = {
   title: string;
   description: string;
   image?: string;
-}
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+};
 
 const { title, description, image = "/og.png" } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.url);
 ---
 
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+/>
+<meta name="theme-color" content={site.themeColor} />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
   rel="alternate"
   type="application/rss+xml"
-  title={SITE_TITLE}
+  title={site.name}
   href={new URL("rss.xml", Astro.site)}
 />
-<meta name="generator" content={Astro.generator} />
-
-<link rel="canonical" href={canonicalURL} />
-
+<link rel="canonical" href={canonicalUrl} />
 <link
   rel="preload"
   as="font"
@@ -38,22 +37,21 @@ const { title, description, image = "/og.png" } = Astro.props;
   href={jetBrainsMonoWoff2}
   crossorigin="anonymous"
 />
+<meta name="generator" content={Astro.generator} />
 
 <title>{title}</title>
-<meta name="title" content={title} />
 <meta name="description" content={description} />
 
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={imageUrl} />
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
 
 <meta
   name="google-site-verification"

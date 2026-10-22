@@ -1,0 +1,14 @@
+---
+import { jobs } from "../data/work";
+import SectionTitle from "./section-title.astro";
+import WorkItem from "./work-item.astro";
+---
+
+<section class="reveal-1" aria-labelledby="work-title">
+  <SectionTitle id="work-title">work</SectionTitle>
+  <ul class="flex flex-col gap-2.5 max-sm:gap-1">
+    {jobs.map((job, index) => (
+      <WorkItem job={job} open={index === 0} />
+    ))}
+  </ul>
+</section>

@@ -1,0 +1,14 @@
+---
+import { projects } from "../data/projects";
+import ProjectItem from "./project-item.astro";
+import SectionTitle from "./section-title.astro";
+---
+
+<section class="reveal-2" aria-labelledby="projects-title">
+  <SectionTitle id="projects-title">projects</SectionTitle>
+  <ul class="flex flex-col gap-4.5">
+    {projects.map((project) => (
+      <ProjectItem project={project} />
+    ))}
+  </ul>
+</section>

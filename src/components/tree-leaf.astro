@@ -1,0 +1,21 @@
+---
+type Props = {
+  last?: boolean;
+  class?: string;
+};
+
+const { last = false, class: className } = Astro.props;
+// ├─ / └─ drawn with 1px lines instead of box-drawing glyphs, which leave
+// gaps between lines. The trunk runs the full row (├) or stops at the first
+// line's middle (└), so rows join up even when the text wraps.
+---
+
+<span
+  class:list={[
+    "relative block pl-6.5 before:absolute before:top-0 before:left-1 before:w-px before:bg-subtle after:absolute after:top-[11px] after:left-1 after:h-px after:w-3 after:bg-subtle",
+    last ? "before:h-[11.5px]" : "before:bottom-0",
+    className,
+  ]}
+>
+  <slot />
+</span>

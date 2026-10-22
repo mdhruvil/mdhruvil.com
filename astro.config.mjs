@@ -18,7 +18,14 @@ export default defineConfig({
     imageService: "compile",
     prerenderEnvironment: "node",
   }),
-  integrations: [expressiveCode(), mdx(), sitemap()],
+  integrations: [
+    expressiveCode({
+      themes: ["catppuccin-mocha"],
+      styleOverrides: { codeFontFamily: "var(--font-mono)" },
+    }),
+    mdx(),
+    sitemap(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

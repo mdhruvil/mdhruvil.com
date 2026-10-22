@@ -1,0 +1,26 @@
+---
+import type { Project } from "../data/projects";
+import ArrowUpRight from "./icons/arrow-up-right.astro";
+import TreeLeaf from "./tree-leaf.astro";
+
+type Props = {
+  project: Project;
+};
+
+const { project } = Astro.props;
+---
+
+<li>
+  <a class="group block" href={project.url}>
+    <span
+      class="inline-flex items-center gap-1.5 text-[15px]/normal font-semibold text-foreground transition-colors duration-150 group-hover:text-accent"
+    >
+      {project.name}
+      <ArrowUpRight
+        class="size-3.25 text-muted transition-[translate,color] duration-250 ease-quint group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+      />
+    </span>
+    <TreeLeaf>{project.summary}</TreeLeaf>
+    <TreeLeaf last class="text-muted">{project.stack.join(" · ")}</TreeLeaf>
+  </a>
+</li>

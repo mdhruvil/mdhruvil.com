@@ -1,0 +1,19 @@
+---
+import { socialLinks } from "../data/site";
+---
+
+<div
+  class="mt-5 flex items-center gap-2.5 text-[14px] max-sm:gap-4.5 max-sm:[--hit-x:18px] max-sm:[--hit-y:13px]"
+>
+  {socialLinks.map((link, index) => (
+    <>
+      {index > 0 && <span class="text-subtle" aria-hidden="true"> / </span>}
+      <a
+        class="hit text-body transition-colors duration-150 hover:text-accent"
+        href={link.href}
+      >
+        {link.label}
+      </a>
+    </>
+  ))}
+</div>

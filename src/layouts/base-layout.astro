@@ -1,15 +1,20 @@
 ---
 import BaseHead from "../components/base-head.astro";
-import Navbar from "../components/navbar.astro";
+import SiteFooter from "../components/site-footer.astro";
+import SiteHeader from "../components/site-header.astro";
+import { site } from "../data/site";
 
 type Props = {
-  title: string;
-  description: string;
-  class?: string;
+  title?: string;
+  description?: string;
   image?: string;
 };
 
-const { title, description, class: className, image } = Astro.props;
+const {
+  title = site.name,
+  description = site.description,
+  image,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -17,10 +22,13 @@ const { title, description, class: className, image } = Astro.props;
   <head>
     <BaseHead title={title} description={description} image={image} />
   </head>
-  <body class="mx-auto mb-20 max-w-4xl px-4 sm:px-6 md:px-8">
-    <Navbar />
-    <main class={className}>
+  <body>
+    <main class="page">
+      <SiteHeader>
+        <slot name="intro" />
+      </SiteHeader>
       <slot />
+      <SiteFooter />
     </main>
   </body>
 </html>

@@ -1,0 +1,111 @@
+---
+import { site } from "../data/site";
+import { getBuildInfo } from "../lib/build-info";
+
+const build = getBuildInfo();
+const commit = build
+  ? { label: build.shortSha, href: build.url, title: build.message }
+  : { label: "local", href: `${site.repo}/commits`, title: undefined };
+
+const separator =
+  "before:whitespace-pre before:text-subtle before:content-['__·__']";
+// The footer is whitespace-sensitive, so its markup stays on purpose on one
+// line between tags.
+---
+
+<!-- prettier-ignore -->
+<footer
+  class="reveal-3 mt-auto leading-[1.75] whitespace-nowrap text-muted [&_[data-pending]]:animate-pending [&_[data-pending]]:text-subtle"
+  aria-live="polite"
+><span>served from <b class="font-normal text-accent" data-colo data-pending>···</b> in <span data-rtt data-pending>··</span>ms<span
+  class={separator}
+  data-cache-wrap
+>cache <b class="font-normal text-success" data-cache data-pending>···</b></span></span><span
+  class:list={[separator, "max-sm:block max-sm:[--hit-y:13px] max-sm:before:content-none"]}
+><a
+  class="hit text-body transition-colors duration-150 hover:text-accent"
+  href={commit.href}
+  title={commit.title}
+>{commit.label}</a> · updated <time
+  datetime={build?.date.toISOString()}
+  title={build?.date.toUTCString()}
+  data-updated
+  data-pending
+>···</time></span></footer>
+
+<script>
+  import { getColoCity } from "../lib/colo-cities";
+  import { formatRelativeTime } from "../lib/relative-time";
+  import { readEdgeTiming } from "../lib/server-timing";
+
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function reveal(element: HTMLElement, text: string, title?: string) {
+    element.textContent = text;
+    if (title) element.title = title;
+    element.removeAttribute("data-pending");
+    element.classList.add("animate-fade");
+  }
+
+  function countUp(element: HTMLElement, to: number) {
+    element.removeAttribute("data-pending");
+    if (reduceMotion || document.hidden) {
+      element.textContent = String(to);
+      return;
+    }
+    const start = performance.now();
+    const duration = 520;
+    // rAF pauses in background tabs; make sure the final value lands anyway.
+    setTimeout(() => (element.textContent = String(to)), duration + 100);
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / duration);
+      element.textContent = String(Math.round(to * (1 - (1 - progress) ** 3)));
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const query = (name: string) =>
+    document.querySelector<HTMLElement>(`footer [data-${name}]`);
+
+  function renderEdge() {
+    const colo = query("colo");
+    const rtt = query("rtt");
+    const cache = query("cache");
+    const cacheWrap = query("cache-wrap");
+    if (!colo || !rtt || !cache || !cacheWrap) return;
+
+    const timing = readEdgeTiming();
+    if (timing.colo) {
+      reveal(colo, timing.colo, getColoCity(timing.colo));
+    } else {
+      reveal(colo, "local");
+    }
+    if (timing.rttMs) {
+      countUp(rtt, Math.max(1, Math.round(timing.rttMs)));
+    } else {
+      reveal(rtt, "–");
+    }
+    if (timing.cache) {
+      reveal(cache, timing.cache.toUpperCase());
+    } else {
+      cacheWrap.hidden = true;
+    }
+  }
+
+  function renderUpdated() {
+    const updated = query("updated");
+    const datetime = updated?.getAttribute("datetime");
+    if (!updated) return;
+    if (!datetime) {
+      reveal(updated, "–");
+      return;
+    }
+    const date = new Date(datetime);
+    reveal(updated, formatRelativeTime(date));
+    setInterval(() => (updated.textContent = formatRelativeTime(date)), 60_000);
+  }
+
+  renderEdge();
+  renderUpdated();
+</script>
