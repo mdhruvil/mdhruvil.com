@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "packageManager": "pnpm@12.8.1",
   "engines": {
-    "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
+    "node": "^22.23.0 || ^24.22.0 || ^26.12.0"
   },
   "scripts": {
     "dev": "cf dev",
@@ -12,6 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "deploy": "cf deploy",
+    "deploy:preview": "cf previews deploy",
     "deploy:dry-run": "cf deploy --dry-run",
     "cf:version": "cf --version",
     "lint": "vp lint",
@@ -42,7 +43,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@types/node": "^24.19.1",
-    "cf": "^1.0.0-beta.12",
+    "cf": "^1.0.0-beta.20",
     "prettier": "^3.9.9",
     "prettier-plugin-astro": "^1.1.0",
     "prettier-plugin-tailwindcss": "^0.8.1",

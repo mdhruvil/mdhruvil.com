@@ -44,7 +44,7 @@ or production IMAGES bindings. The adapter owns the Worker entrypoint and writes
 Build Output under `.cloudflare/output/v0/`.
 
 The approved beta ranges are Astro `^7.4.0-beta.1`, Cloudflare adapter
-`^15.0.0-beta.1`, MDX `^8.0.3-beta.0`, and local `cf` CLI `^1.0.0-beta.12`.
+`^15.0.0-beta.1`, MDX `^8.0.3-beta.0`, and local `cf` CLI `^1.0.0-beta.20`.
 All direct dependencies use caret ranges; `pnpm-lock.yaml` records the tested
 exact versions. Expressive Code's Astro peer metadata excludes this prerelease
 under standard semver, although content and build checks pass. pnpm's peer check
@@ -95,8 +95,8 @@ workerd rejected October 3 as a future date.
 
 ## Quick start
 
-Use Node `24.21.0`, recorded in `.node-version`. The supported Node range is
-`^22.18.0 || ^24.11.0 || >=26.0.0`. The project selects pnpm `12.8.1` through
+Use Node `24.22.0`, recorded in `.node-version`. The supported Node range is
+`^22.23.0 || ^24.22.0 || ^26.12.0`, matching the selected `cf` CLI. The project selects pnpm `12.8.1` through
 `packageManager`; no global tool upgrade is required.
 
 ```bash
@@ -126,6 +126,7 @@ after bootstrapping with the selected pnpm. If your global pnpm is older, use
 | `pnpm run cf:version`     | Print the local Cloudflare CLI version                        |
 | `pnpm run deploy:dry-run` | Build and validate locally, no upload or credentials          |
 | `pnpm run deploy`         | Real production deployment, requires authorization            |
+| `pnpm run deploy:preview` | Build and deploy the current branch as a Worker Preview       |
 | `pnpm run dev:resume`     | Watch the Typst resume                                        |
 | `pnpm run build:resume`   | Compile the Typst resume                                      |
 
@@ -159,12 +160,37 @@ need a browser before production rollout.
 
 ### Deployment and updates
 
-No production deployment or remote pipeline change is part of this migration.
-Before rollout, confirm that Workers Builds or your existing pipeline uses the
-new scripts, installs dev dependencies, selects the supported Node/pnpm, and
-preserves the actual custom-domain routing. `cf deploy` builds first; do not add a
-second build wrapper. A prebuilt deploy must use the mode recorded in
-`.cloudflare/output/v0/config.json`, normally `production`.
+Workers Builds can deploy each non-production branch as a Worker Preview. For an
+existing Git connection, complete the dashboard's **Set up Worker Previews**
+switch and enable preview builds under **Settings > Builds > Branch control**.
+The switch to Worker Previews cannot be reversed.
+
+Use these Workers Builds commands:
+
+- Build command: leave empty.
+- Production deploy command: `pnpm run deploy`.
+- Preview command: `pnpm run deploy:preview` (or `pnpm exec cf previews deploy`).
+
+Both deploy commands build first. Preview deployments build with `isPreview: true`;
+do not reuse production Build Output with `--prebuilt`. Each branch gets
+a stable Preview URL, updated on every push, and each deployment gets an
+immutable URL. Workers Builds can include these URLs in its pull request comment.
+The `cf` CLI must include Workers Builds Preview result reporting, available in
+the selected `1.0.0-beta.20` release.
+
+`previewUrls: true` enables `workers.dev` Preview URLs. Apply this setting through
+the next production deployment, or enable **Domains > Worker URL > Preview** in
+the dashboard. `workersDev: false` keeps the production `workers.dev` route
+disabled. The site currently needs no extra runtime secrets or database bindings
+for Previews; the Astro adapter generates the assets binding. If runtime bindings
+are added later, use function-form `cloudflare.config.ts` and `isPreview` to
+select Preview resources.
+
+Workers Builds must install dev dependencies. It reads Node `24.22.0` from
+`.node-version`; update any dashboard `NODE_VERSION` override to match. Set the
+build variable `PNPM_VERSION` to `12.8.1` to select the project's package manager.
+Preserve the actual custom-domain routing. A production prebuilt deploy must use
+the mode recorded in `.cloudflare/output/v0/config.json`, normally `production`.
 
 `cf` uses its own credentials rather than Wrangler's login. When authorized,
 authenticate with `./node_modules/.bin/cf auth login` and inspect them with

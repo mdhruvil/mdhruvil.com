@@ -9,7 +9,7 @@ export default defineConfig({
       notFoundHandling: "none",
       htmlHandling: "drop-trailing-slash",
     },
-    previewUrls: false,
+    previewUrls: true,
     workersDev: false,
   },
 });

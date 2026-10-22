@@ -1,4 +1,5 @@
-const RELEASE_URL = "https://github.com/mdhruvil/mdhruvil.com/releases/latest/download/";
+const RELEASE_URL =
+  "https://github.com/mdhruvil/mdhruvil.com/releases/latest/download/";
 
 export async function fetchResume(filename: "resume.pdf" | "resume.png") {
   const response = await fetch(new URL(filename, RELEASE_URL), {
@@ -22,7 +23,8 @@ export async function fetchResume(filename: "resume.pdf" | "resume.png") {
 
   return new Response(response.body, {
     headers: {
-      "Content-Type": filename === "resume.pdf" ? "application/pdf" : "image/png",
+      "Content-Type":
+        filename === "resume.pdf" ? "application/pdf" : "image/png",
       "Cache-Control": "no-cache",
     },
   });
