@@ -1,5 +1,6 @@
 ---
 import type { Project } from "../data/projects";
+import { newTabProps } from "../lib/links";
 import ArrowUpRight from "./icons/arrow-up-right.astro";
 import TreeLeaf from "./tree-leaf.astro";
 
@@ -11,7 +12,7 @@ const { project } = Astro.props;
 ---
 
 <li>
-  <a class="group block" href={project.url}>
+  <a class="group block" href={project.url} {...newTabProps(project.url)}>
     <span
       class="inline-flex items-center gap-1.5 text-[15px]/normal font-semibold text-foreground transition-colors duration-150 group-hover:text-accent"
     >

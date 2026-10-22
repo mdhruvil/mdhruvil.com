@@ -1,6 +1,7 @@
 ---
 import { site } from "../data/site";
 import { getBuildInfo } from "../lib/build-info";
+import { newTabProps } from "../lib/links";
 
 const build = getBuildInfo();
 const commit = build
@@ -27,6 +28,7 @@ const separator =
   class="hit text-body transition-colors duration-150 hover:text-accent"
   href={commit.href}
   title={commit.title}
+  {...newTabProps(commit.href)}
 >{commit.label}</a> · updated <time
   datetime={build?.date.toISOString()}
   title={build?.date.toUTCString()}

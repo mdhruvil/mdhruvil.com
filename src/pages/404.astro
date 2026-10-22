@@ -2,6 +2,7 @@
 import SectionTitle from "../components/section-title.astro";
 import { site } from "../data/site";
 import BaseLayout from "../layouts/base-layout.astro";
+import { newTabProps } from "../lib/links";
 
 const links = [
   { label: "/", href: "/" },
@@ -20,6 +21,7 @@ const links = [
         <a
           class="hit w-fit text-body transition-colors duration-150 hover:text-accent"
           href={link.href}
+          {...newTabProps(link.href)}
         >
           {link.label}
         </a>

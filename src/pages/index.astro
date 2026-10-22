@@ -4,6 +4,7 @@ import SocialLinks from "../components/social-links.astro";
 import WorkList from "../components/work-list.astro";
 import { site } from "../data/site";
 import BaseLayout from "../layouts/base-layout.astro";
+import { newTabProps } from "../lib/links";
 ---
 
 <BaseLayout>
@@ -18,8 +19,7 @@ import BaseLayout from "../layouts/base-layout.astro";
           <a
             class="underline decoration-subtle underline-offset-4 transition-colors duration-150 hover:text-accent hover:decoration-accent"
             href={part.href}
-            target="_blank"
-            rel="noopener"
+            {...newTabProps(part.href)}
             >{part.label}</a
           >
         ),

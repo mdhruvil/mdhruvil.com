@@ -1,5 +1,6 @@
 ---
 import { navLinks, site } from "../data/site";
+import { newTabProps } from "../lib/links";
 
 const isHome = Astro.url.pathname === "/";
 const Name = isHome ? "h1" : "p";
@@ -27,6 +28,7 @@ const Name = isHome ? "h1" : "p";
       {navLinks.map((link) => <a
         class="hit text-muted transition-colors duration-150 hover:text-accent"
         href={link.href}
+        {...newTabProps(link.href)}
       >
         {link.label}
       </a>)}

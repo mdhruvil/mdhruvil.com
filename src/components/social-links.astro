@@ -1,5 +1,6 @@
 ---
 import { socialLinks } from "../data/site";
+import { newTabProps } from "../lib/links";
 // Copy links keep their href, so they still work without JS or clipboard
 // access. Both labels share one grid cell: they crossfade in place and the
 // link never changes width.
@@ -50,6 +51,7 @@ import { socialLinks } from "../data/site";
         <a
           class="hit text-body transition-colors duration-150 hover:text-accent"
           href={link.href}
+          {...newTabProps(link.href)}
         >
           {link.label}
         </a>
