@@ -17,7 +17,7 @@ const { project } = Astro.props;
     >
       {project.name}
       <ArrowUpRight
-        class="size-3.25 text-muted transition-[translate,color] duration-250 ease-quint group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent"
+        class="size-3.25 text-muted transition-[translate,color] duration-200 ease-quint group-hover:text-accent motion-safe:group-hover:translate-x-0.5 motion-safe:group-hover:-translate-y-0.5"
       />
     </span>
     <TreeLeaf>{project.summary}</TreeLeaf>

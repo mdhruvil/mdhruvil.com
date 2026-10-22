@@ -15,7 +15,7 @@ const separator =
 
 <!-- prettier-ignore -->
 <footer
-  class="reveal-3 mt-auto leading-[1.75] whitespace-nowrap text-muted [&_[data-pending]]:animate-pending [&_[data-pending]]:text-subtle"
+  class="reveal-3 mt-auto leading-[1.75] whitespace-nowrap text-muted [&_[data-pending]]:animate-pending motion-reduce:[&_[data-pending]]:animate-none [&_[data-pending]]:text-subtle"
   aria-live="polite"
 ><span>served from <b class="font-normal text-accent" data-colo data-pending>···</b> in <span data-rtt data-pending>··</span>ms<span
   class={separator}
@@ -38,31 +38,11 @@ const separator =
   import { formatRelativeTime } from "../lib/relative-time";
   import { readEdgeTiming } from "../lib/server-timing";
 
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   function reveal(element: HTMLElement, text: string, title?: string) {
     element.textContent = text;
     if (title) element.title = title;
     element.removeAttribute("data-pending");
-    element.classList.add("animate-fade");
-  }
-
-  function countUp(element: HTMLElement, to: number) {
-    element.removeAttribute("data-pending");
-    if (reduceMotion || document.hidden) {
-      element.textContent = String(to);
-      return;
-    }
-    const start = performance.now();
-    const duration = 520;
-    // rAF pauses in background tabs; make sure the final value lands anyway.
-    setTimeout(() => (element.textContent = String(to)), duration + 100);
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - start) / duration);
-      element.textContent = String(Math.round(to * (1 - (1 - progress) ** 3)));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+    element.classList.add("animate-resolve");
   }
 
   const query = (name: string) =>
@@ -82,7 +62,7 @@ const separator =
       reveal(colo, "local");
     }
     if (timing.rttMs) {
-      countUp(rtt, Math.max(1, Math.round(timing.rttMs)));
+      reveal(rtt, String(Math.max(1, Math.round(timing.rttMs))));
     } else {
       reveal(rtt, "–");
     }

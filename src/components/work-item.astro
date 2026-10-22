@@ -9,6 +9,8 @@ type Props = {
 const { job, open = false } = Astro.props;
 // Native <details>, no JS. ::details-content animates its height where
 // interpolate-size is supported, and toggles instantly elsewhere.
+// Opens a touch slower than it closes; highlights follow with a 30ms
+// stagger, on toggle only — not for the job that renders open.
 // Roles sit beside the company from sm up, and below it on mobile.
 const rowStyle = (index: number) =>
   `--row: ${index + 1}; --row-sm: ${index + 2}`;
@@ -16,14 +18,14 @@ const rowStyle = (index: number) =>
 
 <li>
   <details
-    class="group/job details-content:h-0 details-content:overflow-clip details-content:transition-[height,content-visibility] details-content:transition-discrete details-content:duration-220 details-content:ease-quint open:details-content:h-auto open:details-content:duration-380 open:details-content:ease-drawer"
+    class="group/job details-content:h-0 details-content:overflow-clip details-content:transition-[height,content-visibility] details-content:transition-discrete details-content:duration-180 details-content:ease-quint open:details-content:h-auto open:details-content:duration-240 motion-reduce:details-content:transition-none"
     open={open}
   >
     <summary
       class="group/head grid cursor-pointer touch-manipulation list-none grid-cols-[24px_auto_1fr_auto] items-center gap-y-0.5 py-0.5 max-sm:grid-cols-[24px_1fr_auto] max-sm:py-2 [&::-webkit-details-marker]:hidden"
     >
       <span
-        class="relative col-start-1 row-start-1 size-3 text-muted transition-[color,scale] duration-200 group-hover/head:text-accent group-active/head:scale-85 group-active/head:duration-100 group-open/job:text-accent before:absolute before:inset-x-px before:top-1/2 before:-mt-[0.75px] before:h-[1.5px] before:rounded-[1px] before:bg-current after:absolute after:inset-x-px after:top-1/2 after:-mt-[0.75px] after:h-[1.5px] after:rotate-90 after:rounded-[1px] after:bg-current after:transition-transform after:duration-300 after:ease-quint group-open/job:after:scale-x-0"
+        class="relative col-start-1 row-start-1 size-3 text-muted transition-[color,scale] duration-200 group-hover/head:text-accent group-active/head:scale-90 group-active/head:duration-100 group-open/job:text-accent before:absolute before:inset-x-px before:top-1/2 before:-mt-[0.75px] before:h-[1.5px] before:rounded-[1px] before:bg-current after:absolute after:inset-x-px after:top-1/2 after:-mt-[0.75px] after:h-[1.5px] after:rotate-90 after:rounded-[1px] after:bg-current after:transition-transform after:duration-200 after:ease-quint motion-reduce:after:transition-none group-open/job:after:scale-x-0"
         aria-hidden="true"
       ></span>
       <span
@@ -50,8 +52,8 @@ const rowStyle = (index: number) =>
     </summary>
     <ul class="py-1 pl-6 max-sm:pt-0">
       {job.highlights.map((highlight, index) => <li
-        class="grid -translate-y-1 grid-cols-[auto_1fr] gap-x-3 text-pretty opacity-0 transition-[opacity,translate] duration-120 before:text-subtle before:content-['-'] group-open/job:translate-y-0 group-open/job:opacity-100 group-open/job:[transition:opacity_0.3s_ease_var(--delay),translate_0.4s_var(--ease-quint)_var(--delay)] group-open/job:starting:-translate-y-1 group-open/job:starting:opacity-0"
-        style={`--delay: ${60 + index * 40}ms`}
+        class="grid grid-cols-[auto_1fr] gap-x-3 text-pretty opacity-0 transition-[opacity,translate] duration-120 ease-quint before:text-subtle before:content-['-'] group-open/job:translate-y-0 group-open/job:opacity-100 group-open/job:delay-(--delay) group-open/job:duration-220 motion-safe:-translate-y-1 ready:group-open/job:starting:opacity-0 ready:motion-safe:group-open/job:starting:-translate-y-1"
+        style={`--delay: ${40 + index * 30}ms`}
       >
         {highlight}
       </li>)}

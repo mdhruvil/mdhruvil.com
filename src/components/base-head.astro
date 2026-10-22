@@ -39,6 +39,29 @@ const imageUrl = new URL(image, Astro.url);
 />
 <meta name="generator" content={Astro.generator} />
 
+<!--
+  The entrance plays once per session; later navigations just crossfade.
+  data-ready lands after the first frame, so interaction-only motion (see the
+  `ready` variant) doesn't replay on content that's already open at load.
+-->
+<script is:inline>
+  {
+    const root = document.documentElement;
+    document.addEventListener("DOMContentLoaded", () =>
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => (root.dataset.ready = "")),
+      ),
+    );
+    try {
+      if (sessionStorage.getItem("seen")) {
+        root.dataset.returning = "";
+      } else {
+        sessionStorage.setItem("seen", "1");
+      }
+    } catch {}
+  }
+</script>
+
 <title>{title}</title>
 <meta name="description" content={description} />
 

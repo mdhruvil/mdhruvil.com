@@ -15,28 +15,35 @@
   --color-accent: #fab387; /* peach */
   --color-success: #a6e3a1; /* green */
 
+  /* strong ease-out for things entering; strong ease-in-out for things travelling */
   --ease-quint: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
-  --animate-rise: rise 0.7s var(--ease-quint) both;
-  --animate-draw: draw 0.6s var(--ease-quint) both;
-  --animate-fade: fade 0.35s ease both;
+  --animate-rise: rise 500ms var(--ease-quint) both;
+  --animate-draw: draw 450ms var(--ease-in-out) both;
+  --animate-resolve: resolve 240ms var(--ease-quint) both;
   --animate-pending: pending 1.2s ease-in-out infinite;
 
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(6px);
     }
   }
+  /* explicit `to`: an inset() can't interpolate to the default `none` */
   @keyframes draw {
     from {
-      transform: scaleX(0);
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      clip-path: inset(0);
     }
   }
-  @keyframes fade {
+  /* placeholder → real value: blur bridges the swap so it reads as one change */
+  @keyframes resolve {
     from {
       opacity: 0;
+      filter: blur(2px);
     }
   }
   @keyframes pending {
@@ -89,17 +96,7 @@
     @apply bg-accent/20 text-foreground;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-delay: 0s !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      transition-delay: 0s !important;
-    }
-  }
+  /* reduced motion is handled per animation: movement is dropped, opacity stays */
 }
 
 /* page column: content hugs the left with fluid padding, respects notches */
@@ -114,11 +111,54 @@
     max(var(--page-pl), env(safe-area-inset-left));
 }
 
-/* staggered entrance; children read --reveal-delay to follow along */
+/* only after the first frame, so @starting-style skips what's open at load */
+@custom-variant ready (&:where(:root[data-ready] *));
+
+/* plain fade for the reduced-motion entrance */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* page navigations crossfade instead of replaying the entrance */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: var(--ease-quint);
+}
+
+/*
+ * Staggered entrance, first page view of a session only (base-head sets
+ * data-returning after that). Children read --reveal-delay to follow along.
+ */
 @utility reveal-* {
-  --reveal-delay: calc(--value(integer) * 80ms);
-  animation: var(--animate-rise);
-  animation-delay: var(--reveal-delay);
+  --reveal-delay: calc(--value(integer) * 60ms);
+
+  :root:not([data-returning]) & {
+    animation: var(--animate-rise);
+    animation-delay: var(--reveal-delay);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: fade;
+    }
+  }
+}
+
+/* draws ::before in from its right edge, just behind its section's entrance */
+@utility draw-in {
+  :root:not([data-returning]) &::before {
+    animation: var(--animate-draw);
+    animation-delay: calc(var(--reveal-delay, 0ms) + 150ms);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
 }
 
 /* bigger tap target without moving any text; tune with --hit-x / --hit-y */
