@@ -2,17 +2,191 @@
 
 @plugin "@tailwindcss/typography";
 
+/* catppuccin mocha */
 @theme {
-  --font-mono: "JetBrains Mono Variable", monospace;
-  --color-background: #111111;
-  --color-foreground: #d1d5db;
-  --color-accent: #00cf00;
+  --font-mono:
+    "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-background: #181825; /* mantle */
+  --color-foreground: #cdd6f4; /* text */
+  --color-body: #a6adc8; /* subtext0 */
+  --color-muted: #7f849c; /* overlay1, 4.7:1 on mantle */
+  --color-subtle: #45475a; /* surface1, decorative only */
+  --color-accent: #fab387; /* peach */
+  --color-success: #a6e3a1; /* green */
+
+  /* strong ease-out for things entering; strong ease-in-out for things travelling */
+  --ease-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --animate-rise: rise 500ms var(--ease-quint) both;
+  --animate-draw: draw 450ms var(--ease-in-out) both;
+  --animate-resolve: resolve 240ms var(--ease-quint) both;
+  --animate-pending: pending 1.2s ease-in-out infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  /* explicit `to`: an inset() can't interpolate to the default `none` */
+  @keyframes draw {
+    from {
+      clip-path: inset(0 0 0 100%);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+  /* placeholder → real value: blur bridges the swap so it reads as one change */
+  @keyframes resolve {
+    from {
+      opacity: 0;
+      filter: blur(2px);
+    }
+  }
+  @keyframes pending {
+    50% {
+      opacity: 0.4;
+    }
+  }
 }
 
-body {
-  @apply bg-background font-mono text-foreground antialiased;
+@layer base {
+  /* layout tokens, mobile first */
+  :root {
+    --page-pt: 28px;
+    --page-pr: 24px;
+    --page-pb: 48px;
+    --page-pl: 24px;
+    --page-column: 624px; /* ~70 chars of 15px mono */
+    --section-gap: 56px;
+
+    @variant sm {
+      /* 768 → ~72 · 1024 → 120 · 1440 → 200 · 1920 → ~292 */
+      --page-pt: clamp(56px, 3.125vw + 27px, 96px);
+      --page-pr: 72px;
+      --page-pb: clamp(56px, 3.125vw + 27px, 96px);
+      --page-pl: clamp(52px, 19.23vw - 77px, 296px);
+      --section-gap: 64px;
+    }
+    @variant lg {
+      --section-gap: 72px;
+    }
+  }
+
+  html {
+    @apply bg-background;
+    -webkit-text-size-adjust: 100%;
+    /* lets <details> animate to height: auto */
+    interpolate-size: allow-keywords;
+  }
+
+  body {
+    @apply font-mono text-[13px]/[1.7] text-body antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    @apply rounded-[2px] outline-1 outline-offset-4 outline-accent;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-foreground;
+  }
+
+  /* reduced motion is handled per animation: movement is dropped, opacity stays */
 }
 
-::selection {
-  background: rgba(0, 255, 0, 0.4);
+/* page column: content hugs the left with fluid padding, respects notches */
+@utility page {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  gap: var(--section-gap);
+  max-width: calc(var(--page-column) + var(--page-pl) + var(--page-pr));
+  padding: max(var(--page-pt), env(safe-area-inset-top))
+    max(var(--page-pr), env(safe-area-inset-right)) var(--page-pb)
+    max(var(--page-pl), env(safe-area-inset-left));
+}
+
+/* only after the first frame, so @starting-style skips what's open at load */
+@custom-variant ready (&:where(:root[data-ready] *));
+
+/* plain fade for the reduced-motion entrance */
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* page navigations crossfade instead of replaying the entrance */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: var(--ease-quint);
+}
+
+/*
+ * Staggered entrance, first page view of a session only (base-head sets
+ * data-returning after that). Children read --reveal-delay to follow along.
+ */
+@utility reveal-* {
+  --reveal-delay: calc(--value(integer) * 60ms);
+
+  :root:not([data-returning]) & {
+    animation: var(--animate-rise);
+    animation-delay: var(--reveal-delay);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation-name: fade;
+    }
+  }
+}
+
+/* draws ::before in from its right edge, just behind its section's entrance */
+@utility draw-in {
+  :root:not([data-returning]) &::before {
+    animation: var(--animate-draw);
+    animation-delay: calc(var(--reveal-delay, 0ms) + 150ms);
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+}
+
+/* bigger tap target without moving any text; tune with --hit-x / --hit-y */
+@utility hit {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: calc(var(--hit-y, 4px) * -1) calc(var(--hit-x, 10px) * -1);
+  }
+}
+
+@utility prose {
+  --tw-prose-body: var(--color-body);
+  --tw-prose-headings: var(--color-foreground);
+  --tw-prose-lead: var(--color-body);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-foreground);
+  --tw-prose-counters: var(--color-muted);
+  --tw-prose-bullets: var(--color-subtle);
+  --tw-prose-hr: var(--color-subtle);
+  --tw-prose-quotes: var(--color-foreground);
+  --tw-prose-quote-borders: var(--color-subtle);
+  --tw-prose-captions: var(--color-muted);
+  --tw-prose-code: var(--color-foreground);
+  --tw-prose-pre-code: var(--color-foreground);
+  --tw-prose-pre-bg: var(--color-background);
+  --tw-prose-th-borders: var(--color-subtle);
+  --tw-prose-td-borders: var(--color-subtle);
 }

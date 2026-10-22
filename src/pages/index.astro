@@ -1,19 +1,32 @@
 ---
-import Hero from "../components/sections/hero.astro";
-import Experience from "../components/sections/experience.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import ProjectList from "../components/project-list.astro";
+import SocialLinks from "../components/social-links.astro";
+import WorkList from "../components/work-list.astro";
+import { site } from "../data/site";
 import BaseLayout from "../layouts/base-layout.astro";
-import Projects from "../components/sections/projects.astro";
-import Links from "../components/sections/links.astro";
+import { newTabProps } from "../lib/links";
 ---
 
-<BaseLayout
-  title={SITE_TITLE}
-  description={SITE_DESCRIPTION}
-  class="mt-24 space-y-20"
->
-  <Hero />
-  <Experience />
-  <Projects />
-  <Links />
+<BaseLayout>
+  <Fragment slot="intro">
+    <p
+      class="mt-16 text-[14px]/[1.75] text-pretty text-foreground max-sm:mt-14"
+    >
+      {site.bio.map((part) =>
+        typeof part === "string" ? (
+          part
+        ) : (
+          <a
+            class="underline decoration-subtle underline-offset-4 transition-colors duration-150 hover:text-accent hover:decoration-accent"
+            href={part.href}
+            {...newTabProps(part.href)}
+            >{part.label}</a
+          >
+        ),
+      )}
+    </p>
+    <SocialLinks />
+  </Fragment>
+  <WorkList />
+  <ProjectList />
 </BaseLayout>

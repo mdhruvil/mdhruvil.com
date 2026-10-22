@@ -1,0 +1,16 @@
+---
+type Props = {
+  id: string;
+  as?: "h1" | "h2";
+};
+
+const { id, as: Heading = "h2" } = Astro.props;
+// The accent dash hangs in the left margin, and sits inline below sm.
+---
+
+<Heading
+  id={id}
+  class="relative mb-8 flex h-5 items-center text-[14px] font-bold text-foreground before:absolute before:top-[9.25px] before:-left-13 before:h-[1.5px] before:w-10 draw-in before:bg-accent max-sm:gap-2.5 max-sm:before:static max-sm:before:flex-none"
+>
+  <slot />
+</Heading>

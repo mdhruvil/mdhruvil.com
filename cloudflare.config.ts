@@ -11,5 +11,9 @@ export default defineConfig({
     },
     previewUrls: true,
     workersDev: false,
+    domains: [
+      "mdhruvil.com",
+      { hostname: "previews.mdhruvil.com", production: false, previews: true },
+    ],
   },
 });

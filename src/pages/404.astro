@@ -1,31 +1,31 @@
 ---
+import SectionTitle from "../components/section-title.astro";
+import { site } from "../data/site";
 import BaseLayout from "../layouts/base-layout.astro";
+import { newTabProps } from "../lib/links";
+
+const links = [
+  { label: "/", href: "/" },
+  { label: "/blog", href: "/blog" },
+  { label: "/resume", href: "/resume.pdf" },
+];
 ---
 
-<BaseLayout
-  title="404 - Page Not Found"
-  description="Page not found"
-  class="mt-24"
->
-  <h1 class="my-8 text-2xl">404 - Page Not Found</h1>
-
-  <div class="space-y-4">
-    <p>Oops! It seems like you've ventured into uncharted territory.</p>
-    <ul class="list-inside list-disc space-y-2">
-      <li>
-        <a href="/" class="text-accent hover:underline">
-          Return to the homepage
+<BaseLayout title={`404 — ${site.name}`} description="Page not found.">
+  <section class="reveal-1" aria-labelledby="not-found-title">
+    <SectionTitle id="not-found-title" as="h1">404</SectionTitle>
+    <p class="text-foreground">nothing lives at this path.</p>
+    <ul class="mt-5">
+      {links.map((link) => <li class="grid grid-cols-[auto_1fr] gap-x-2.5">
+        <span class="text-subtle" aria-hidden="true"> - </span>
+        <a
+          class="hit w-fit text-body transition-colors duration-150 hover:text-accent"
+          href={link.href}
+          {...newTabProps(link.href)}
+        >
+          {link.label}
         </a>
-      </li>
-      <li>
-        <a href="/projects" class="text-accent hover:underline">
-          Check out my projects
-        </a>
-      </li>
-      <li>
-        <a href="/blog" class="text-accent hover:underline">
-          Read my latest blog posts
-        </a>
-      </li>
+      </li>)}
     </ul>
-  </div></BaseLayout>
+  </section>
+</BaseLayout>

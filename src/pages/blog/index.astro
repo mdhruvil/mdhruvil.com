@@ -1,38 +1,36 @@
 ---
 import { getCollection } from "astro:content";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import FormattedDate from "../../components/formatted-date.astro";
+import SectionTitle from "../../components/section-title.astro";
+import TreeLeaf from "../../components/tree-leaf.astro";
+import { site } from "../../data/site";
 import BaseLayout from "../../layouts/base-layout.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<BaseLayout
-  title={SITE_TITLE}
-  description={SITE_DESCRIPTION}
-  class="mt-24 space-y-20"
->
-  <div>
-    <h1 class="flex items-center text-4xl font-bold text-white">
-      <span class="text-accent mr-2">/</span>
-      blogs
-    </h1>
-    <p class="mt-4 leading-relaxed text-gray-400">
-      here are some blogs i&apos;ve written.
-    </p>
-  </div>
-  <div class="space-y-5">
-    {posts.map((post) => <a
-      href={`/blog/${post.id}`}
-      class="group flex justify-between gap-4 transition-colors"
-    >
-      <p class="group-hover:text-accent">{post.data.title}</p>
-      <FormattedDate
-        date={post.data.pubDate}
-        class="group-hover:text-accent shrink-0 text-sm text-gray-400"
-      />
-    </a>)}
-  </div>
+<BaseLayout title={`blog — ${site.name}`}>
+  <section class="reveal-1" aria-labelledby="blog-title">
+    <SectionTitle id="blog-title" as="h1">blog</SectionTitle>
+    <ul class="flex flex-col gap-4.5">
+      {posts.map((post) => <li>
+        <a class="group block" href={`/blog/${post.id}`}>
+          <span class="flex items-baseline justify-between gap-4">
+            <span
+              class="text-[15px]/normal font-semibold text-foreground transition-colors duration-150 group-hover:text-accent"
+            >
+              {post.data.title}
+            </span>
+            <FormattedDate
+              date={post.data.pubDate}
+              class="shrink-0 text-muted"
+            />
+          </span>
+          <TreeLeaf last>{post.data.description}</TreeLeaf>
+        </a>
+      </li>)}
+    </ul>
+  </section>
 </BaseLayout>

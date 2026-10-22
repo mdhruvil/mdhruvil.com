@@ -1,0 +1,62 @@
+---
+import type { Job } from "../data/work";
+
+type Props = {
+  job: Job;
+  open?: boolean;
+};
+
+const { job, open = false } = Astro.props;
+// Native <details>, no JS. ::details-content animates its height where
+// interpolate-size is supported, and toggles instantly elsewhere.
+// Opens a touch slower than it closes; highlights follow with a 30ms
+// stagger, on toggle only — not for the job that renders open.
+// Roles sit beside the company from sm up, and below it on mobile.
+const rowStyle = (index: number) =>
+  `--row: ${index + 1}; --row-sm: ${index + 2}`;
+---
+
+<li>
+  <details
+    class="group/job details-content:h-0 details-content:overflow-clip details-content:transition-[height,content-visibility] details-content:transition-discrete details-content:duration-180 details-content:ease-quint open:details-content:h-auto open:details-content:duration-240 motion-reduce:details-content:transition-none"
+    open={open}
+  >
+    <summary
+      class="group/head grid cursor-pointer touch-manipulation list-none grid-cols-[24px_auto_1fr_auto] items-center gap-y-0.5 py-0.5 max-sm:grid-cols-[24px_1fr_auto] max-sm:py-2 [&::-webkit-details-marker]:hidden"
+    >
+      <span
+        class="relative col-start-1 row-start-1 size-3 text-muted transition-[color,scale] duration-200 group-hover/head:text-accent group-active/head:scale-90 group-active/head:duration-100 group-open/job:text-accent before:absolute before:inset-x-px before:top-1/2 before:-mt-[0.75px] before:h-[1.5px] before:rounded-[1px] before:bg-current after:absolute after:inset-x-px after:top-1/2 after:-mt-[0.75px] after:h-[1.5px] after:rotate-90 after:rounded-[1px] after:bg-current after:transition-transform after:duration-200 after:ease-quint motion-reduce:after:transition-none group-open/job:after:scale-x-0"
+        aria-hidden="true"
+      ></span>
+      <span
+        class="col-start-2 row-start-1 text-[14px] font-semibold text-foreground max-sm:col-span-2"
+      >
+        {job.company}
+      </span>
+      {job.roles.map((role, index) => (
+        <>
+          <span
+            class="col-start-3 row-start-(--row) flex whitespace-nowrap text-muted before:whitespace-pre before:text-subtle before:content-['_/_'] max-sm:col-start-2 max-sm:row-start-(--row-sm) max-sm:whitespace-normal max-sm:before:content-none"
+            style={rowStyle(index)}
+          >
+            {role.title}
+          </span>
+          <span
+            class="col-start-4 row-start-(--row) pl-4 text-right whitespace-nowrap text-muted max-sm:col-start-3 max-sm:row-start-(--row-sm)"
+            style={rowStyle(index)}
+          >
+            {role.period}
+          </span>
+        </>
+      ))}
+    </summary>
+    <ul class="py-1 pl-6 max-sm:pt-0">
+      {job.highlights.map((highlight, index) => <li
+        class="grid grid-cols-[auto_1fr] gap-x-3 text-pretty opacity-0 transition-[opacity,translate] duration-120 ease-quint before:text-subtle before:content-['-'] group-open/job:translate-y-0 group-open/job:opacity-100 group-open/job:delay-(--delay) group-open/job:duration-220 motion-safe:-translate-y-1 ready:group-open/job:starting:opacity-0 ready:motion-safe:group-open/job:starting:-translate-y-1"
+        style={`--delay: ${40 + index * 30}ms`}
+      >
+        {highlight}
+      </li>)}
+    </ul>
+  </details>
+</li>
