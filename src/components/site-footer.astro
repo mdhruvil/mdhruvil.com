@@ -10,18 +10,19 @@ const commit = build
 const separator =
   "before:whitespace-pre before:text-subtle before:content-['__·__']";
 // The footer is whitespace-sensitive, so its markup stays on purpose on one
-// line between tags.
+// line between tags. The edge line may wrap (place names run long), but
+// "· cache HIT" and the commit line never break inside.
 ---
 
 <!-- prettier-ignore -->
 <footer
-  class="reveal-3 mt-auto leading-[1.75] whitespace-nowrap text-muted [&_[data-pending]]:animate-pending motion-reduce:[&_[data-pending]]:animate-none [&_[data-pending]]:text-subtle"
+  class="reveal-3 mt-auto leading-[1.75] text-muted [&_[data-pending]]:animate-pending motion-reduce:[&_[data-pending]]:animate-none [&_[data-pending]]:text-subtle"
   aria-live="polite"
 ><span>served from <b class="font-normal text-accent" data-colo data-pending>···</b> in <span data-rtt data-pending>··</span>ms<span
-  class={separator}
+  class:list={[separator, "whitespace-nowrap"]}
   data-cache-wrap
 >cache <b class="font-normal text-success" data-cache data-pending>···</b></span></span><span
-  class:list={[separator, "max-sm:block max-sm:[--hit-y:13px] max-sm:before:content-none"]}
+  class="block whitespace-nowrap max-sm:[--hit-y:13px]"
 ><a
   class="hit text-body transition-colors duration-150 hover:text-accent"
   href={commit.href}
@@ -57,7 +58,8 @@ const separator =
 
     const timing = readEdgeTiming();
     if (timing.colo) {
-      reveal(colo, timing.colo, getColoCity(timing.colo));
+      const place = getColoCity(timing.colo);
+      reveal(colo, place ? `${place} (${timing.colo})` : timing.colo);
     } else {
       reveal(colo, "local");
     }

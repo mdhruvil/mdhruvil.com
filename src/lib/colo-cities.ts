@@ -1,4 +1,4 @@
-// Cloudflare colo (IATA code) → city, used for the footer tooltip.
+// Cloudflare colo (IATA code) → "City, Country", shown in the footer.
 const coloCities: Record<string, string> = {
   AAE: "Annaba, Algeria",
   ABJ: "Abidjan, Ivory Coast",
